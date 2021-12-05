@@ -1,5 +1,6 @@
 package game2048;
 
+import java.util.EmptyStackException;
 import java.util.Formatter;
 import java.util.Observable;
 
@@ -138,6 +139,13 @@ public class Model extends Observable {
      * */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
+        int boardSize = b.size();
+        for (int row = 0; row < boardSize; row += 1) {
+            for (int column = 0; column < boardSize; column += 1) {
+                if (b.tile(column, row) == null)
+                    return true;
+            }
+        }
         return false;
     }
 
@@ -148,6 +156,13 @@ public class Model extends Observable {
      */
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
+        int boardSize = b.size();
+        for (int row = 0; row < boardSize; row += 1) {
+            for (int column = 0; column < boardSize; column += 1) {
+                if (b.tile(column, row) != null && b.tile(column, row).value() == MAX_PIECE)
+                    return true;
+            }
+        }
         return false;
     }
 
@@ -159,9 +174,40 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
+        if (emptySpaceExists(b))
+            return true;
+
+        for (int row = 1; row < 3; row += 1) {
+            for (int column = 0; column <= 3; column += 1) {
+                if (isMerge_able(b, row, column, b.tile(column, row).value()))
+                    return true;
+            }
+        }
         return false;
     }
 
+    /** A helper function that returns true if a tile has merge-able adjacent tile*/
+    public static boolean isMerge_able(Board b, int row, int column, int curr_tile_val) {
+        for (int other_row = -1; other_row <= 1; other_row += 1) {
+            for (int other_column = -1; other_column <= 1; other_column += 1) {
+                if (other_column + column <= 0)
+                    continue;
+                else if (other_column == 0 || other_row == 0)
+                    continue;
+                else if (other_column + column >= b.size())
+                    break;
+                else {
+                    int current_row = other_row + row;
+                    int current_colum = other_column + column;
+                    if (b.tile(current_colum, row).value() == curr_tile_val)
+                        return true;
+                    else if (b.tile(column, current_row).value() == curr_tile_val)
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
 
     @Override
      /** Returns the model as a string, used for debugging. */
