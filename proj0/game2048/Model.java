@@ -3,10 +3,12 @@ package game2048;
 import java.util.EmptyStackException;
 import java.util.Formatter;
 import java.util.Observable;
+import java.util.concurrent.TimeoutException;
+import java.util.prefs.NodeChangeEvent;
 
 
 /** The state of a game of 2048.
- *  @author TODO: YOUR NAME HERE
+ *  @author yisadesu
  */
 public class Model extends Observable {
     /** Current contents of the board. */
@@ -107,6 +109,7 @@ public class Model extends Observable {
      *    value, then the leading two tiles in the direction of motion merge,
      *    and the trailing tile does not.
      * */
+
     public boolean tilt(Side side) {
         boolean changed;
         changed = false;
@@ -115,12 +118,63 @@ public class Model extends Observable {
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
 
+        board.setViewingPerspective(side);
+
+        for (int column = 0; column <= board.size() -1; column ++) {
+
+            for  (int row = board.size() - 1; row > 0; row --) {
+
+                Tile currentTile = board.tile(column, row);
+
+                // if current tile is null, we look for non-null tile below.
+                if (currentTile == null) {
+                    Tile tileBelow = lookTileBelow(column, row - 1, board);
+                    if (tileBelow != null) {
+                        board.move(column, row, tileBelow);
+                        row += 1;
+                        changed = true;
+                    }
+                }
+
+                // current tile is not null
+                else if (currentTile != null) {
+                    Tile tileBelow = lookTileBelow(column, row - 1, board);
+                    if (tileBelow != null) {
+                        // tile below has the same value as current tile
+                        if (currentTile.value() == tileBelow.value()) {
+                            board.move(column, row, tileBelow);
+                            score += board.tile(column, row).value();
+                        } else if (tileBelow.value() != currentTile.value() && row - tileBelow.row() > 1) {
+                            board.move(column, row - 1, tileBelow);
+                        }
+                        changed = true;
+                    }
+                }
+            }
+        }
+        board.setViewingPerspective(Side.NORTH);
+
+
         checkGameOver();
         if (changed) {
             setChanged();
         }
         return changed;
     }
+
+
+
+    public static Tile lookTileBelow(int col, int startRow, Board board) {
+        for (int row = startRow; row >= 0; row --) {
+            Tile tile = board.tile(col, row);
+
+            if (tile != null) {
+                return tile;
+            }
+        }
+        return null;
+    }
+
 
     /** Checks if the game is over and sets the gameOver variable
      *  appropriately.
