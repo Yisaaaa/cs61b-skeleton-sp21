@@ -1,6 +1,10 @@
 package deque;
 
+import jh61b.junit.In;
 import org.junit.Test;
+
+import javax.management.ObjectName;
+
 import static org.junit.Assert.*;
 
 
@@ -135,5 +139,39 @@ public class LinkedListDequeTest {
         }
 
         */
+    }
+
+    // My Tests
+    @Test
+    public void emptyLinkedListDequeTest(){
+        LinkedListDeque<Integer> myList = new LinkedListDeque<>();
+        LinkedListDeque.IntNode[] expectedValues =  {myList.sentinel, myList.sentinel};
+        LinkedListDeque.IntNode[] result = {myList.sentinel.prev, myList.sentinel.next};
+
+        assertArrayEquals(expectedValues, result);
+    }
+
+    @Test
+    public void LinkedListDequeTest() {
+        LinkedListDeque<String> myList = new LinkedListDeque<>("hello");
+        LinkedListDeque<String>.IntNode theNode = myList.sentinel.next;
+        LinkedListDeque.IntNode[] expectedValues =  {theNode, theNode, myList.sentinel, myList.sentinel};
+        LinkedListDeque.IntNode[] result = {myList.sentinel.next, myList.sentinel.prev, myList.sentinel.next.prev, myList.sentinel.next.next};
+
+        assertArrayEquals(expectedValues, result);
+    }
+
+    private LinkedListDeque<Integer> myList = new LinkedListDeque<>(69);
+    private LinkedListDeque.IntNode veryFirst = myList.sentinel.next;
+
+    @Test
+    public void addFirstTest() {
+        myList.addFirst(96);
+        int result = myList.sentinel.next.item;
+        assertEquals(96, result);
+
+        myList.addFirst(56);
+        myList.addFirst(72);
+        assertEquals(myList.sentinel.prev, veryFirst);
     }
 }

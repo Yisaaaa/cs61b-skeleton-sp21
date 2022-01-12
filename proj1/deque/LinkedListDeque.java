@@ -1,30 +1,78 @@
 package deque;
 
+import jh61b.junit.In;
+
 public class LinkedListDeque<T> {
     // sentinel is always 69
     IntNode sentinel;
+    private int size = 0;
 
     /* IntNode class */
-    private class IntNode {
+    public class IntNode {
         T item;
         IntNode prev;
         IntNode next;
 
-        public IntNode(T i, IntNode n) {
+        public IntNode(T i, IntNode n, IntNode p) {
             item = i;
             next = n;
+            prev = p;
         }
     }
 
+    public void initializedSentinel() {
+        sentinel = new IntNode(null, null, null);
+        sentinel.next = sentinel; sentinel.prev = sentinel;
+    }
+
+    public LinkedListDeque() {
+        initializedSentinel();
+    }
+
     public LinkedListDeque(T i) {
-        sentinel = new IntNode(null, null);
-        sentinel.next = new IntNode(i, sentinel);
-        sentinel.prev = sentinel.next.next;
-        sentinel.next.prev = sentinel;
+        initializedSentinel();
+        this.addFirst(i);
+    }
+
+    public void addFirst(T item) {
+        if (sentinel.next.equals(sentinel)) {
+            addFirstHelper(item);
+            sentinel.prev = sentinel.next;
+        } else {
+            addFirstHelper(item);
+        }
+    }
+
+    public void addFirstHelper(T item) {
+        size ++;
+        IntNode newNode = new IntNode(item, sentinel.next, sentinel);
+        sentinel.next.prev = newNode;
+        sentinel.next = newNode;
+    }
+
+    // addLast
+    public void addLast(T item) {
+        size ++;
+        IntNode newNode = new IntNode(item, sentinel.prev, sentinel);
+        sentinel.prev.next = newNode;
+        sentinel.prev = newNode;
+    }
+
+    // isEmpty
+    public boolean isEmpty() {
+
+        return true;
+    }
+
+    // size
+    public int size() {
+        return this.size;
     }
 
     public static void main(String[] args) {
         LinkedListDeque<Integer> deq = new LinkedListDeque<>(12);
-        LinkedListDeque<Integer>.IntNode pev = deq.sentinel;
+        deq.addFirst(34);
+        deq.addFirst(23);
+        deq.addFirst(72);
     }
 }
