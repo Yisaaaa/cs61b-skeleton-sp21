@@ -54,6 +54,7 @@ public class LinkedListDeque<T> {
     public void addLast(T item) {
         size ++;
         IntNode newNode = new IntNode(item, sentinel.prev, sentinel);
+        sentinel.prev.next = newNode;
         sentinel.prev = newNode;
     }
 
@@ -66,6 +67,8 @@ public class LinkedListDeque<T> {
     public int size() {
         return this.size;
     }
+
+
 
     public static void main(String[] args) {
         LinkedListDeque<Integer> deq = new LinkedListDeque<>(12);
