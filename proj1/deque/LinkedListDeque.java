@@ -35,6 +35,7 @@ public class LinkedListDeque<T> {
     }
 
     public void addFirst(T item) {
+        size ++;
         if (sentinel.next.equals(sentinel)) {
             addFirstHelper(item);
             sentinel.prev = sentinel.next;
@@ -44,7 +45,6 @@ public class LinkedListDeque<T> {
     }
 
     public void addFirstHelper(T item) {
-        size ++;
         IntNode newNode = new IntNode(item, sentinel.next, sentinel);
         sentinel.next.prev = newNode;
         sentinel.next = newNode;
@@ -54,14 +54,12 @@ public class LinkedListDeque<T> {
     public void addLast(T item) {
         size ++;
         IntNode newNode = new IntNode(item, sentinel.prev, sentinel);
-        sentinel.prev.next = newNode;
         sentinel.prev = newNode;
     }
 
     // isEmpty
     public boolean isEmpty() {
-
-        return true;
+        return sentinel.next.equals(sentinel);
     }
 
     // size

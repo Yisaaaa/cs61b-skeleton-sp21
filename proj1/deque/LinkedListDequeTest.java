@@ -174,4 +174,21 @@ public class LinkedListDequeTest {
         myList.addFirst(72);
         assertEquals(myList.sentinel.prev, veryFirst);
     }
+
+    @Test
+    public void addLastTest() {
+        myList.addLast(96);
+        int result = myList.sentinel.prev.item;
+        assertEquals(96, result);
+        myList.addLast(72);
+        result = myList.sentinel.prev.item;
+        assertEquals(72, result);
+    }
+
+    @Test
+    public void isEmptyTest() {
+        LinkedListDeque<Integer> empty = new LinkedListDeque<>();
+        assertTrue(empty.isEmpty());
+        assertFalse(myList.isEmpty());
+    }
 }
