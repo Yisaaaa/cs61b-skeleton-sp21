@@ -3,6 +3,8 @@ package deque;
 import jh61b.junit.In;
 import org.junit.Test;
 
+import java.util.spi.LocaleNameProvider;
+
 import static org.junit.Assert.*;
 
 
@@ -143,6 +145,7 @@ public class LinkedListDequeTest {
     @Test
     public void emptyLinkedListDequeTest(){
         LinkedListDeque<Integer> myList = new LinkedListDeque<>();
+
         LinkedListDeque.IntNode[] expectedValues =  {myList.sentinel, myList.sentinel};
         LinkedListDeque.IntNode[] result = {myList.sentinel.prev, myList.sentinel.next};
 
@@ -153,6 +156,7 @@ public class LinkedListDequeTest {
     public void LinkedListDequeTest() {
         LinkedListDeque<String> myList = new LinkedListDeque<>("hello");
         LinkedListDeque<String>.IntNode theNode = myList.sentinel.next;
+
         LinkedListDeque.IntNode[] expectedValues =  {theNode, theNode, myList.sentinel, myList.sentinel};
         LinkedListDeque.IntNode[] result = {myList.sentinel.next, myList.sentinel.prev, myList.sentinel.next.prev, myList.sentinel.next.next};
 
@@ -176,10 +180,12 @@ public class LinkedListDequeTest {
     public void addLastTest() {
         LinkedListDeque<Integer> empty = new LinkedListDeque<>();
         LinkedListDeque<Integer> myList = new LinkedListDeque<>(69);
+
         LinkedListDeque.IntNode veryFirst = myList.sentinel.next;
         myList.addLast(96);
         int result = myList.sentinel.prev.item;
         assertEquals(96, result);
+
         myList.addLast(72);
         result = myList.sentinel.prev.item;
         assertEquals(72, result);
@@ -195,6 +201,7 @@ public class LinkedListDequeTest {
     public void isEmptyTest() {
         LinkedListDeque<Integer> empty = new LinkedListDeque<>();
         LinkedListDeque<Integer> myList = new LinkedListDeque<>(69);
+        
         LinkedListDeque.IntNode veryFirst = myList.sentinel.next;
         assertTrue(empty.isEmpty());
         assertFalse(myList.isEmpty());
@@ -211,6 +218,40 @@ public class LinkedListDequeTest {
         expected = "1 2 3 4 5 6 7 8 9 10 11 12 13";
         result = dequeLonger.printDequeHelper();
         assertEquals(expected, result);
+    }
+
+    @Test
+    public void removeFirstTest() {
+        LinkedListDeque<Integer> deque = generateNautralDeque(5);
+        LinkedListDeque.IntNode nextAfterRemoved = deque.sentinel.next.next;
+        int result = deque.removeFirst();
+        int expected = 1;
+        assertEquals(expected, result);
+        assertEquals(deque.sentinel.next, nextAfterRemoved);
+
+        nextAfterRemoved = deque.sentinel.next.next;
+        result = deque.removeFirst();
+        expected = 2;
+        assertEquals(expected, result);
+        assertEquals(deque.sentinel.next, nextAfterRemoved);
+
+        // Test empty deque
+        LinkedListDeque<Integer> empty = new LinkedListDeque<>();
+        assertEquals(null, empty.removeFirst());
+    }
+
+    @Test
+    public void removeLastTest() {
+        LinkedListDeque<Integer> deque = generateNautralDeque(5);
+        LinkedListDeque.IntNode lastAfterRemoved = deque.sentinel.prev.prev;
+        int result = deque.removeLast();
+        int expected = 5;
+        assertEquals(expected, result);
+        assertEquals(deque.sentinel.prev, lastAfterRemoved);
+
+        // Test empty deque
+        LinkedListDeque<Integer> empty = new LinkedListDeque<>();
+        assertEquals(null, empty.removeLast());
     }
 
     public static LinkedListDeque<Integer> generateNautralDeque(int length) {

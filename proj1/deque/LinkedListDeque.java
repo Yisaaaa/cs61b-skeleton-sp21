@@ -84,6 +84,36 @@ public class LinkedListDeque<T> {
         return stringDeque + String.valueOf(currNode.item);
     }
 
+    public T removeFirst() {
+        if (sentinel.next != sentinel) {
+            return removeFirstHelper();
+        } else {
+            return null;
+        }
+    }
+    public T removeFirstHelper() {
+        IntNode nextAfterRemoved = sentinel.next.next;
+        IntNode removedNode = sentinel.next;
+        sentinel.next = nextAfterRemoved;
+        nextAfterRemoved.prev = sentinel;
+        return removedNode.item;
+    }
+
+    public T removeLast() {
+        if (sentinel.prev != sentinel) {
+            return removeLastHelper();
+        }else {
+            return null;
+        }
+    }
+    public T removeLastHelper() {
+        IntNode lastAfterRemoved = sentinel.prev.prev;
+        IntNode removedNode = sentinel.prev;
+        sentinel.prev = lastAfterRemoved;
+        lastAfterRemoved.next = sentinel;
+        return removedNode.item;
+    }
+
     public static void main(String[] args) {
         LinkedListDeque<Integer> deq = new LinkedListDeque<>(12);
         deq.addFirst(34);
