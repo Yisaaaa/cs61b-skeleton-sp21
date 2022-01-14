@@ -260,7 +260,9 @@ public class LinkedListDequeTest {
 
         int expected = 5;
         int result =  deque.get(4);
+
         assertEquals(expected, result);
+        assertNull(deque.get(10));
     }
 
     public static LinkedListDeque<Integer> generateNautralDeque(int length) {
