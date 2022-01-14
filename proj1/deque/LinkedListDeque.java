@@ -1,10 +1,5 @@
 package deque;
 
-import jh61b.junit.In;
-
-import javax.management.StringValueExp;
-import java.io.StringBufferInputStream;
-
 public class LinkedListDeque<T> {
     // sentinel is always 69
     IntNode sentinel;
