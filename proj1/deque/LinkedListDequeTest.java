@@ -254,6 +254,15 @@ public class LinkedListDequeTest {
         assertEquals(null, empty.removeLast());
     }
 
+    @Test
+    public void getTest() {
+        LinkedListDeque<Integer> deque = generateNautralDeque(10);
+
+        int expected = 5;
+        int result =  deque.get(4);
+        assertEquals(expected, result);
+    }
+
     public static LinkedListDeque<Integer> generateNautralDeque(int length) {
         LinkedListDeque<Integer> deque = new LinkedListDeque<>();
         while (length > 0) {

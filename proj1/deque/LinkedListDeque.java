@@ -114,6 +114,19 @@ public class LinkedListDeque<T> {
         return removedNode.item;
     }
 
+    public T get(int index) {
+        if (index >= this.size) {
+            return null;
+        } else {
+            IntNode currNode = sentinel;
+            while (index >= 0) {
+                currNode = currNode.next;
+                index --;
+            }
+            return currNode.item;
+        }
+    }
+
     public static void main(String[] args) {
         LinkedListDeque<Integer> deq = new LinkedListDeque<>(12);
         deq.addFirst(34);
