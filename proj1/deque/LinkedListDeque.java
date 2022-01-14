@@ -2,6 +2,9 @@ package deque;
 
 import jh61b.junit.In;
 
+import javax.management.StringValueExp;
+import java.io.StringBufferInputStream;
+
 public class LinkedListDeque<T> {
     // sentinel is always 69
     IntNode sentinel;
@@ -68,7 +71,18 @@ public class LinkedListDeque<T> {
         return this.size;
     }
 
-
+    public void printDeque() {
+        System.out.println(printDequeHelper());
+    }
+    public String printDequeHelper() {
+        String stringDeque = "";
+        IntNode currNode = sentinel.next;
+        while (currNode != sentinel.prev) {
+            stringDeque += String.valueOf(currNode.item) + " ";
+            currNode = currNode.next;
+        }
+        return stringDeque + String.valueOf(currNode.item);
+    }
 
     public static void main(String[] args) {
         LinkedListDeque<Integer> deq = new LinkedListDeque<>(12);

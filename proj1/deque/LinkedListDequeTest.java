@@ -1,5 +1,6 @@
 package deque;
 
+import jh61b.junit.In;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -201,5 +202,23 @@ public class LinkedListDequeTest {
 
     @Test
     public void printDequeTest() {
+        LinkedListDeque<Integer> deque = generateNautralDeque(4);
+        String expected = "1 2 3 4";
+        String result = deque.printDequeHelper();
+        assertEquals(expected, result);
+
+        LinkedListDeque<Integer> dequeLonger = generateNautralDeque(13);
+        expected = "1 2 3 4 5 6 7 8 9 10 11 12 13";
+        result = dequeLonger.printDequeHelper();
+        assertEquals(expected, result);
+    }
+
+    public static LinkedListDeque<Integer> generateNautralDeque(int length) {
+        LinkedListDeque<Integer> deque = new LinkedListDeque<>();
+        while (length > 0) {
+            deque.addFirst(length);
+            length --;
+        }
+        return deque;
     }
 }
