@@ -7,9 +7,9 @@ public class LinkedListDeque<T> {
 
     /* IntNode class */
     public class IntNode {
-        T item;
-        IntNode prev;
-        IntNode next;
+        public T item;
+        public IntNode prev;
+        public IntNode next;
 
         public IntNode(T i, IntNode n, IntNode p) {
             item = i;
@@ -73,10 +73,10 @@ public class LinkedListDeque<T> {
         String stringDeque = "";
         IntNode currNode = sentinel.next;
         while (currNode != sentinel.prev) {
-            stringDeque += String.valueOf(currNode.item) + " ";
+            stringDeque += currNode.item + " ";
             currNode = currNode.next;
         }
-        return stringDeque + String.valueOf(currNode.item);
+        return stringDeque + currNode.item;
     }
 
     public T removeFirst() {
