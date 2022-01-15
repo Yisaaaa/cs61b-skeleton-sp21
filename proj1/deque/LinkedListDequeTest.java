@@ -246,11 +246,15 @@ public class LinkedListDequeTest {
 
         assertEquals(expected, result);
         assertNull(deque.get(10));
+
+        result = deque.getRecursive(4);
+        assertEquals(expected, result);
+        assertNull(deque.getRecursive(10));
     }
 
     public static LinkedListDeque<Integer> generateNautralDeque(int length) {
         LinkedListDeque<Integer> deque = new LinkedListDeque<>();
-        int counter = 0;
+        int counter = 1;
         while (counter <= length) {
             deque.addLast(counter);
             counter ++;

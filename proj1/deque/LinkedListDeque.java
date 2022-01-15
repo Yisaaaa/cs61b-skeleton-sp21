@@ -1,5 +1,7 @@
 package deque;
 
+import jh61b.junit.In;
+
 public class LinkedListDeque<T> {
     // sentinel is always 69
     public IntNode sentinel;
@@ -112,7 +114,7 @@ public class LinkedListDeque<T> {
     }
 
     public T get(int index) {
-        if (index >= this.size) {
+        if (index >= this.size || index < 0) {
             return null;
         } else {
             IntNode currNode = sentinel;
@@ -125,10 +127,17 @@ public class LinkedListDeque<T> {
     }
 
     public T getRecursive(int index) {
-        return getRecursiveHelper(index);
+        if (index >= this.size() || index < 0) {
+            return null;
+        }
+        return getRecursiveHelper(index, sentinel.next);
     }
-    public T getRecursiveHelper(int index) {
-
+    public T getRecursiveHelper(int index, IntNode node) {
+        if (index == 0) {
+            return node.item;
+        } else {
+            return getRecursiveHelper(index - 1, node.next);
+        }
     }
 
     public static void main(String[] args) {
