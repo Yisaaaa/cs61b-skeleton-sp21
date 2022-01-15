@@ -125,8 +125,8 @@ public class LinkedListDequeTest {
     public void emptyLinkedListDequeTest(){
         LinkedListDeque<Integer> myList = new LinkedListDeque<>();
 
-        LinkedListDeque.IntNode[] expectedValues =  {myList.sentinel, myList.sentinel};
-        LinkedListDeque.IntNode[] result = {myList.sentinel.prev, myList.sentinel.next};
+        LinkedListDeque.TNode[] expectedValues =  {myList.sentinel, myList.sentinel};
+        LinkedListDeque.TNode[] result = {myList.sentinel.prev, myList.sentinel.next};
 
         assertArrayEquals(expectedValues, result);
     }
@@ -134,10 +134,10 @@ public class LinkedListDequeTest {
     @Test
     public void LinkedListDequeTest() {
         LinkedListDeque<String> myList = new LinkedListDeque<>("hello");
-        LinkedListDeque<String>.IntNode theNode = myList.sentinel.next;
+        LinkedListDeque<String>.TNode theNode = myList.sentinel.next;
 
-        LinkedListDeque.IntNode[] expectedValues =  {theNode, theNode, myList.sentinel, myList.sentinel};
-        LinkedListDeque.IntNode[] result = {myList.sentinel.next, myList.sentinel.prev, myList.sentinel.next.prev, myList.sentinel.next.next};
+        LinkedListDeque.TNode[] expectedValues =  {theNode, theNode, myList.sentinel, myList.sentinel};
+        LinkedListDeque.TNode[] result = {myList.sentinel.next, myList.sentinel.prev, myList.sentinel.next.prev, myList.sentinel.next.next};
 
         assertArrayEquals(expectedValues, result);
     }
@@ -145,7 +145,7 @@ public class LinkedListDequeTest {
     @Test
     public void addFirstTest() {
         LinkedListDeque<Integer> myList = new LinkedListDeque<>(69);
-        LinkedListDeque.IntNode veryFirst = myList.sentinel.next;
+        LinkedListDeque.TNode veryFirst = myList.sentinel.next;
         myList.addFirst(96);
         int result = myList.sentinel.next.item;
         assertEquals(96, result);
@@ -160,7 +160,7 @@ public class LinkedListDequeTest {
         LinkedListDeque<Integer> empty = new LinkedListDeque<>();
         LinkedListDeque<Integer> myList = new LinkedListDeque<>(69);
 
-        LinkedListDeque.IntNode veryFirst = myList.sentinel.next;
+        LinkedListDeque.TNode veryFirst = myList.sentinel.next;
         myList.addLast(96);
         int result = myList.sentinel.prev.item;
         assertEquals(96, result);
@@ -181,7 +181,7 @@ public class LinkedListDequeTest {
         LinkedListDeque<Integer> empty = new LinkedListDeque<>();
         LinkedListDeque<Integer> myList = new LinkedListDeque<>(69);
         
-        LinkedListDeque.IntNode veryFirst = myList.sentinel.next;
+        LinkedListDeque.TNode veryFirst = myList.sentinel.next;
         assertTrue(empty.isEmpty());
         assertFalse(myList.isEmpty());
     }
@@ -202,7 +202,7 @@ public class LinkedListDequeTest {
     @Test
     public void removeFirstTest() {
         LinkedListDeque<Integer> deque = generateNautralDeque(5);
-        LinkedListDeque.IntNode nextAfterRemoved = deque.sentinel.next.next;
+        LinkedListDeque.TNode nextAfterRemoved = deque.sentinel.next.next;
         int result = deque.removeFirst();
         int expected = 1;
         assertEquals(expected, result);
@@ -222,7 +222,7 @@ public class LinkedListDequeTest {
     @Test
     public void removeLastTest() {
         LinkedListDeque<Integer> deque = generateNautralDeque(5);
-        LinkedListDeque.IntNode lastAfterRemoved = deque.sentinel.prev.prev;
+        LinkedListDeque.TNode lastAfterRemoved = deque.sentinel.prev.prev;
         int result = deque.removeLast();
         int expected = 5;
         assertEquals(expected, result);
