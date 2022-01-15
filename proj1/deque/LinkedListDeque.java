@@ -2,7 +2,7 @@ package deque;
 
 public class LinkedListDeque<T> {
     // sentinel is always 69
-    IntNode sentinel;
+    public IntNode sentinel;
     private int size = 0;
 
     /* IntNode class */
@@ -122,6 +122,13 @@ public class LinkedListDeque<T> {
             }
             return currNode.item;
         }
+    }
+
+    public T getRecursive(int index) {
+        return getRecursiveHelper(index);
+    }
+    public T getRecursiveHelper(int index) {
+
     }
 
     public static void main(String[] args) {
