@@ -21,6 +21,20 @@ public class ArrayDeque<Bacon>{
         return items[index];
     }
 
+    public String stringArrayDeque() {
+        String string = "";
+        for (Bacon i : items) {
+            if (i == null || i.equals(0)) {
+                return string;
+            } else if (items[items.length - 1] == i) {
+                string += i;
+            } else {
+                string += i + " ";
+            }
+        }
+        return string;
+    }
+
     public int size() {
         return size;
     }
@@ -31,15 +45,19 @@ public class ArrayDeque<Bacon>{
         size ++;
         if (nextFirst == 0) {
             nextFirst = items.length - 1;
-            nextLast ++;
         } else {
             nextFirst --;
         }
     }
 
-    public addLast(Bacon x) {
+    public void addLast(Bacon x) {
         items[nextLast] = x;
         size++;
-        if 
+        if (nextLast == items.length - 1) {
+            nextLast = 0;
+        } else {
+            nextLast ++;
+        }
     }
+
 }

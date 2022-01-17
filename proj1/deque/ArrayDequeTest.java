@@ -17,6 +17,27 @@ public class ArrayDequeTest{
         assertEquals((Integer) 34, a.get(7));
         assertEquals(2, a.size());
         assertEquals(6, a.nextFirst);
+
+        // second Test
+
     }
-    
+
+    @Test
+    public void addLastAndAddFirstTest() {
+        ArrayDeque<Integer> a = new ArrayDeque<>();
+        ArrayDeque<Integer> b = new ArrayDeque<>();
+        int i = 1;
+        while (a.size() < 8) {
+            a.addLast(i);
+            b.addFirst(i);
+            i *= 2;
+        }
+        assertEquals("128 1 2 4 8 16 32 64", a.stringArrayDeque());
+        assertEquals("1 128 64 32 16 8 4 2", b.stringArrayDeque());
+    }
+
+    public static void main(String[] args) {
+        ArrayDeque<String> a = new ArrayDeque<>();
+        System.out.println(a.get(3) == null);
+    }
 }
