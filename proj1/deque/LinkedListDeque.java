@@ -1,6 +1,5 @@
 package deque;
 
-import jh61b.junit.In;
 
 public class LinkedListDeque<T> {
     // sentinel is always 69

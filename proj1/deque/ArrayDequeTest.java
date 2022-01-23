@@ -79,5 +79,4 @@ public class ArrayDequeTest{
         assertNull(b.removeLast());
     }
 
-
 }
