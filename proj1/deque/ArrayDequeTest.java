@@ -71,5 +71,13 @@ public class ArrayDequeTest{
         }
 
         assertEquals(1, a.nextLast);
+        a.removeLast();
+        a.removeLast();
+        assertEquals(7, a.nextLast);
+
+        ArrayDeque<Integer> b = new ArrayDeque<>();
+        assertNull(b.removeLast());
     }
+
+
 }
