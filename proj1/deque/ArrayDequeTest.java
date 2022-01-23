@@ -40,4 +40,36 @@ public class ArrayDequeTest{
         ArrayDeque<String> a = new ArrayDeque<>();
         System.out.println(a.get(3) == null);
     }
+
+    @Test
+    public void removeFirstTest() {
+        ArrayDeque<Integer> a = new ArrayDeque<>();
+        for (int i = 1; i <= 8; i++) {
+            a.addFirst(i);
+        }
+
+        assertEquals(0, a.nextFirst);
+        assertEquals(8, (int) a.removeFirst());
+        a.removeFirst();
+        a.removeFirst();
+        a.removeFirst();
+        a.removeFirst();
+        assertEquals(5, a.nextFirst);
+        a.removeFirst();
+        a.removeFirst();
+        assertEquals(7, a.nextFirst);
+        assertEquals("1 ", a.stringArrayDeque());
+        a.removeFirst();
+        assertNull(a.removeFirst());
+    }
+
+    @Test
+    public void removeLastTest() {
+        ArrayDeque<Integer> a = new ArrayDeque<>();
+        for (int i = 1; i <= 8; i++) {
+            a.addLast(i);
+        }
+
+        assertEquals(1, a.nextLast);
+    }
 }
