@@ -51,15 +51,47 @@ public class ArrayDeque<Bacon> {
     }
 
     public void addFirst(Bacon x) {
+        if (nextFirst == -1) {
+            nextFirst = maxIndex;
+        }
         if (isFull()) {
             System.out.println("array is full");
             return;
         }
-        else if (nextFirst == -1) {
-            nextFirst = maxIndex;
+        if (nextFirst == 0) {
+            nextLast ++;
         }
         items[nextFirst] = x;
         nextFirst --;
         size ++;
+    }
+
+    public void addLast(Bacon x) {
+        if (nextLast > maxIndex) {
+            nextLast = 0;
+        }
+        if (isFull()) {
+            System.out.println("array is full");
+            return;
+        }
+        if (nextLast == 0) {
+            nextFirst --;
+        }
+        items[nextLast] = x;
+        nextLast ++;
+        size ++;
+    }
+
+    public static void main(String[] args) {
+        ArrayDeque<Integer> a = new ArrayDeque<>();
+        a.addFirst(12);
+        a.addLast(23);
+        a.addFirst(17);
+        a.addLast(2);
+        a.addLast(45);
+        a.addFirst(1);
+        a.addLast(4);
+        a.addLast(7);
+        a.addFirst(11);
     }
 }
