@@ -1,7 +1,6 @@
 package deque;
 
 
-import java.lang.reflect.Array;
 
 public class ArrayDeque<Bacon> {
     // Todo Do everything in the deque APi
@@ -97,7 +96,7 @@ public class ArrayDeque<Bacon> {
     }
 
     public static void main(String[] args) {
-        ArrayDeque<Integer> a = new ArrayDeque<>();
+        ArrayDeque<Integer> a = new ArrayDeque<>(2);
         a.addFirst(12);
         a.addLast(23);
         a.addFirst(17);
