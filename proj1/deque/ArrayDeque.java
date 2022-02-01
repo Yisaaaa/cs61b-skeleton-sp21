@@ -1,6 +1,8 @@
 package deque;
 
 
+import java.lang.reflect.Array;
+
 public class ArrayDeque<Bacon> {
     // Todo Do everything in the deque APi
 
@@ -10,7 +12,19 @@ public class ArrayDeque<Bacon> {
     private Bacon[] items;
     private int maxIndex;
 
+    public ArrayDeque(Bacon x) {
+        initializeArrayDeque();
+        this.nextFirst --;
+        this.nextLast ++;
+        this.items[0] = x;
+        size ++;
+    }
+
     public ArrayDeque() {
+        initializeArrayDeque();
+    }
+
+    public void initializeArrayDeque() {
         items = (Bacon[]) new Object[8];
         size = 0;
         nextFirst = 0;
