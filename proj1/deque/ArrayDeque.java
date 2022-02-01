@@ -11,13 +11,14 @@ public class ArrayDeque<Bacon> {
     private Bacon[] items;
     private int maxIndex;
 
+    /**
     public ArrayDeque(Bacon x) {
         initializeArrayDeque();
         this.nextFirst --;
         this.nextLast ++;
         this.items[0] = x;
         size ++;
-    }
+    } */
 
     public ArrayDeque() {
         initializeArrayDeque();
