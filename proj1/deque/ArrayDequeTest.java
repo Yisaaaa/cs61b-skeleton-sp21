@@ -9,14 +9,14 @@ public class ArrayDequeTest{
     public void addFirstAndSizeTest() {
         ArrayDeque<Integer> a = new ArrayDeque<>();
         a.addFirst(12);
-        assertEquals(-1, a.nextFirst);
+        assertEquals(-1, a.nextFront);
         a.addFirst(4);
-        assertEquals(6, a.nextFirst);
+        assertEquals(6, a.nextFront);
 
         for (int i = 1; i <= 6; i ++) {
             a.addFirst(i);
         }
-        assertEquals(0, a.nextFirst);
+        assertEquals(0, a.nextFront);
         assertEquals(true, a.isFull());
         a.addFirst(123);
         assertEquals(12, (int) a.get(0));
@@ -80,16 +80,16 @@ public class ArrayDequeTest{
             a.addFirst(i);
         }
 
-        assertEquals(0, a.nextFirst);
+        assertEquals(0, a.nextFront);
         assertEquals(8, (int) a.removeFirst());
         a.removeFirst();
         a.removeFirst();
         a.removeFirst();
         a.removeFirst();
-        assertEquals(5, a.nextFirst);
+        assertEquals(5, a.nextFront);
         a.removeFirst();
         a.removeFirst();
-        assertEquals(7, a.nextFirst);
+        assertEquals(7, a.nextFront);
         assertEquals("1 ", a.stringArrayDeque());
         a.removeFirst();
         assertNull(a.removeFirst());
@@ -102,10 +102,10 @@ public class ArrayDequeTest{
             a.addLast(i);
         }
 
-        assertEquals(1, a.nextLast);
+        assertEquals(1, a.nextRear);
         a.removeLast();
         a.removeLast();
-        assertEquals(7, a.nextLast);
+        assertEquals(7, a.nextRear);
 
         ArrayDeque<Integer> b = new ArrayDeque<>();
         assertNull(b.removeLast());

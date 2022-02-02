@@ -5,20 +5,19 @@ package deque;
 public class ArrayDeque<Bacon> {
     // Todo Do everything in the deque APi
 
-    public int nextFirst;
-    public int nextLast;
+    public int nextFront;
+    public int nextRear;
     private int size;
     private Bacon[] items;
     private int maxIndex;
 
-    /**
     public ArrayDeque(Bacon x) {
         initializeArrayDeque();
-        this.nextFirst --;
-        this.nextLast ++;
+        this.nextFront --;
+        this.nextRear ++;
         this.items[0] = x;
         size ++;
-    } */
+    }
 
     public ArrayDeque() {
         initializeArrayDeque();
@@ -27,8 +26,8 @@ public class ArrayDeque<Bacon> {
     public void initializeArrayDeque() {
         items = (Bacon[]) new Object[8];
         size = 0;
-        nextFirst = 0;
-        nextLast = 0;
+        nextFront = 0;
+        nextRear = 0;
         maxIndex = items.length - 1;
     }
 
@@ -65,47 +64,86 @@ public class ArrayDeque<Bacon> {
     }
 
     public void addFirst(Bacon x) {
-        if (nextFirst == -1) {
-            nextFirst = maxIndex;
+        if (nextFront == -1) {
+            nextFront = maxIndex;
         }
         if (isFull()) {
             System.out.println("array is full");
             return;
         }
-        if (nextFirst == 0) {
-            nextLast ++;
+        if (nextFront == 0) {
+            nextRear ++;
         }
-        items[nextFirst] = x;
-        nextFirst --;
+        items[nextFront] = x;
+        nextFront --;
         size ++;
     }
 
     public void addLast(Bacon x) {
-        if (nextLast > maxIndex) {
-            nextLast = 0;
+        if (nextRear > maxIndex) {
+            nextRear = 0;
         }
         if (isFull()) {
             System.out.println("array is full");
             return;
         }
-        if (nextLast == 0) {
-            nextFirst --;
+        if (nextRear == 0) {
+            nextFront --;
         }
-        items[nextLast] = x;
-        nextLast ++;
+        items[nextRear] = x;
+        nextRear ++;
         size ++;
+    }
+
+    private Bacon remove(int index) {
+        Bacon removedItem = this.items[index];
+        this.items[index] = null;
+        return removedItem;
+    }
+
+    public Bacon removeFirst() {
+        if (isEmpty()) {
+            return null;
+        }
+        Bacon removedItem;
+        if (nextFront == maxIndex) {
+            removedItem = remove(0);
+            nextFront = 0;
+        } else {
+            removedItem = remove(nextFront + 1);
+            nextFront ++;
+        }
+        size --;
+        return removedItem;
+    }
+
+    public Bacon removeLast() {
+        if (isEmpty()) {
+            return null;
+        }
+        Bacon removedItem ;
+        if (nextRear == 0) {
+            removedItem = remove(maxIndex);
+            nextRear = maxIndex;
+        } else {
+            removedItem = remove(nextRear - 1);
+            nextRear --;
+        }
+        size --;
+        return removedItem;
     }
 
     public static void main(String[] args) {
         ArrayDeque<Integer> a = new ArrayDeque<>(2);
         a.addFirst(12);
         a.addLast(23);
+        a.removeFirst();
         a.addFirst(17);
         a.addLast(2);
+        a.removeFirst();
         a.addLast(45);
-        a.addFirst(1);
         a.addLast(4);
         a.addLast(7);
-        a.addFirst(11);
+        a.addLast(11);
     }
 }
