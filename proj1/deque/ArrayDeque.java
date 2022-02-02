@@ -1,6 +1,7 @@
 package deque;
 
 
+import java.util.function.DoubleToIntFunction;
 
 public class ArrayDeque<Bacon> {
     // Todo Do everything in the deque APi
@@ -59,8 +60,21 @@ public class ArrayDeque<Bacon> {
         return size;
     }
 
+    public double getUsageRatio() {
+        return size() / (double) length();
+    }
+
+    public int length() {
+        return items.length;
+    }
+
     public Boolean isFull() {
         return size == items.length;
+    }
+
+    // cut the array in half if this returns true
+    public boolean shouldBeShrinked() {
+        return getUsageRatio() < 0.25;
     }
 
     public void addFirst(Bacon x) {
@@ -68,8 +82,8 @@ public class ArrayDeque<Bacon> {
             nextFront = maxIndex;
         }
         if (isFull()) {
-            System.out.println("array is full");
-            return;
+            System.out.println("array is full, resizing...");
+            resize(size * 2);
         }
         if (nextFront == 0) {
             nextRear ++;
@@ -84,8 +98,8 @@ public class ArrayDeque<Bacon> {
             nextRear = 0;
         }
         if (isFull()) {
-            System.out.println("array is full");
-            return;
+            System.out.println("array is full, resizing...");
+            resize(size * 2);
         }
         if (nextRear == 0) {
             nextFront --;
@@ -132,18 +146,37 @@ public class ArrayDeque<Bacon> {
         size --;
         return removedItem;
     }
+    // change all array is full condition in add method to resizing
+    public void resize(int amount) {
+        Bacon[] newItems = (Bacon[]) new Object[amount];
+        System.arraycopy(items, 0, newItems, 0, nextRear);
+        int newMaxIndex = newItems.length - 1;
+        int startIndex = 1 + newMaxIndex - (maxIndex - nextFront);
+        System.arraycopy(items, nextFront + 1, newItems, startIndex , maxIndex - nextFront);
+        items = newItems;
+        nextFront = startIndex - 1;
+        maxIndex = items.length - 1;
+    }
 
     public static void main(String[] args) {
         ArrayDeque<Integer> a = new ArrayDeque<>(2);
         a.addFirst(12);
         a.addLast(23);
-        a.removeFirst();
         a.addFirst(17);
         a.addLast(2);
-        a.removeFirst();
         a.addLast(45);
         a.addLast(4);
         a.addLast(7);
         a.addLast(11);
+        a.addFirst(34);
+        a.addLast(87);
+        a.addFirst(31);
+        a.addFirst(65);
+        a.addLast(93);
+        System.out.println(a.getUsageRatio());
+        a.addLast(5);
+        a.addLast(17);
+        a.addFirst(67);
+        a.addLast(24);
     }
 }
