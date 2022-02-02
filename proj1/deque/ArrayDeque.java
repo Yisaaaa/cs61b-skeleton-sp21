@@ -1,6 +1,8 @@
 package deque;
 
 
+import edu.princeton.cs.algs4.BST;
+
 import java.util.function.DoubleToIntFunction;
 
 public class ArrayDeque<Bacon> {
@@ -83,7 +85,7 @@ public class ArrayDeque<Bacon> {
         }
         if (isFull()) {
             System.out.println("array is full, resizing...");
-            resize(size * 2);
+            resizeGrow(size * 2);
         }
         if (nextFront == 0) {
             nextRear ++;
@@ -99,7 +101,7 @@ public class ArrayDeque<Bacon> {
         }
         if (isFull()) {
             System.out.println("array is full, resizing...");
-            resize(size * 2);
+            resizeGrow(size * 2);
         }
         if (nextRear == 0) {
             nextFront --;
@@ -146,16 +148,29 @@ public class ArrayDeque<Bacon> {
         size --;
         return removedItem;
     }
-    // change all array is full condition in add method to resizing
-    public void resize(int amount) {
-        Bacon[] newItems = (Bacon[]) new Object[amount];
-        System.arraycopy(items, 0, newItems, 0, nextRear);
-        int newMaxIndex = newItems.length - 1;
+
+    private void resizeHelper(Bacon[] newArray) {
+        // from 0 to the very rear
+        System.arraycopy(items, 0, newArray, 0, nextRear);
+
+        // from the back of the array to the very front
+        int newMaxIndex = newArray.length - 1;
         int startIndex = 1 + newMaxIndex - (maxIndex - nextFront);
-        System.arraycopy(items, nextFront + 1, newItems, startIndex , maxIndex - nextFront);
-        items = newItems;
+        System.arraycopy(items, nextFront + 1, newArray, startIndex , maxIndex - nextFront);
+        this.items = newArray;
         nextFront = startIndex - 1;
-        maxIndex = items.length - 1;
+        maxIndex = newMaxIndex;
+    }
+
+    // change all array is full condition in add method to resizing
+    private void resizeGrow(int amount) {
+        Bacon[] newItems = (Bacon[]) new Object[amount];
+        resizeHelper(newItems);
+    }
+
+    private void resizeShrink() {
+        Bacon[] smallerItems = (Bacon[]) new Object[items.length / 2];
+        resizeHelper(smallerItems);
     }
 
     public static void main(String[] args) {
@@ -168,6 +183,9 @@ public class ArrayDeque<Bacon> {
         a.addLast(4);
         a.addLast(7);
         a.addLast(11);
+        a.removeLast();
+        a.resizeShrink();
+        /**
         a.addFirst(34);
         a.addLast(87);
         a.addFirst(31);
@@ -178,5 +196,7 @@ public class ArrayDeque<Bacon> {
         a.addLast(17);
         a.addFirst(67);
         a.addLast(24);
+         */
+
     }
 }
