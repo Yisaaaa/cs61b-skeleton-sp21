@@ -22,6 +22,10 @@ public class ArrayDeque<Bacon> {
         size ++;
     }
 
+    public boolean equals(Object o) {
+        return o instanceof ArrayDeque;
+    }
+
     public ArrayDeque() {
         initializeArrayDeque();
     }

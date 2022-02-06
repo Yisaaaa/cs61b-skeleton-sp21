@@ -1,6 +1,8 @@
 package deque;
 
 
+import java.util.function.ObjIntConsumer;
+
 public class LinkedListDeque<T> {
     // sentinel is always 69
     public TNode sentinel;
@@ -17,6 +19,10 @@ public class LinkedListDeque<T> {
             next = n;
             prev = p;
         }
+    }
+
+    public boolean equals(Object o) {
+        return o instanceof LinkedListDeque;
     }
 
     public void initializedSentinel() {
