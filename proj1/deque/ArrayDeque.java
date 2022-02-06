@@ -184,7 +184,13 @@ public class ArrayDeque<Bacon> {
         a.addLast(7);
         a.addLast(11);
         a.removeLast();
-        a.resizeShrink();
+        a.removeFirst();
+        a.removeFirst();
+        a.removeFirst();
+        a.removeFirst();
+        a.removeLast();
+        a.removeFirst();
+        a.removeLast();
         /**
         a.addFirst(34);
         a.addLast(87);
