@@ -32,6 +32,8 @@ public class ArrayDeque<Bacon> {
         nextRear = 0;
         maxIndex = items.length - 1;
     }
+    // check if an object is equal to 
+    public
 
     public Boolean isEmpty() {
         return size == 0;
