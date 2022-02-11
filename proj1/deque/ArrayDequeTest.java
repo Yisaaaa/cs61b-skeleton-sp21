@@ -37,7 +37,8 @@ public class ArrayDequeTest{
         a.addLast(7);
         a.addFirst(11);
 
-        assertEquals("12 23 2 45 4 7 1 17", a.stringArrayDeque());
+        assertEquals("12 23 2 45 4 7 11 1 17", a.stringArrayDeque());
+        assertEquals(16, a.length());
 
         ArrayDeque<Integer> b = new ArrayDeque<>();
         b.addLast(12);
@@ -49,7 +50,7 @@ public class ArrayDequeTest{
         b.addLast(4);
         b.addLast(7);
         b.addFirst(11);
-        assertEquals("12 23 2 45 4 7 1 17", b.stringArrayDeque());
+        assertEquals("12 23 2 45 4 7 11 1 17", b.stringArrayDeque());
     }
 
 
