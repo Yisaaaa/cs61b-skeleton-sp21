@@ -1,10 +1,5 @@
 package deque;
 
-
-import edu.princeton.cs.algs4.BST;
-
-import java.util.function.DoubleToIntFunction;
-
 public class ArrayDeque<Bacon> {
     // Todo Do everything in the deque APi
 
