@@ -18,7 +18,21 @@ public class ArrayDeque<Bacon> {
     }
 
     public boolean equals(Object o) {
-        return o instanceof ArrayDeque;
+        return o instanceof ArrayDeque &&
+                ((ArrayDeque<?>) o).items.getClass().isInstance(items.getClass()) &&
+                ((ArrayDeque<?>) o).length() == length() &&
+                equalsHelper((ArrayDeque<Bacon>) o);
+    }
+
+    public boolean equalsHelper(ArrayDeque other) {
+        int index = 0;
+        while (index < length()) {
+            if (other.get(index) != get(index)) {
+                return false;
+            }
+            index ++;
+        }
+        return true;
     }
 
     public ArrayDeque() {
@@ -32,8 +46,6 @@ public class ArrayDeque<Bacon> {
         nextRear = 0;
         maxIndex = items.length - 1;
     }
-    // check if an object is equal to 
-    public
 
     public Boolean isEmpty() {
         return size == 0;
