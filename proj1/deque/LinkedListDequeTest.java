@@ -2,6 +2,7 @@ package deque;
 
 import jh61b.junit.In;
 import org.junit.Test;
+import org.junit.Assert;
 
 import java.util.spi.LocaleNameProvider;
 
@@ -252,6 +253,28 @@ public class LinkedListDequeTest {
         assertNull(deque.getRecursive(10));
     }
 
+    @Test
+    public void equalsTest() {
+        LinkedListDeque<Integer> a = new LinkedListDeque<>();
+        LinkedListDeque<Integer> b = new LinkedListDeque<>();
+        a = generateNautralDeque(5);
+        b = generateNautralDeque(5);
+
+        assertTrue(a.equals(b));
+
+        b.removeFirst();
+        b.addFirst(234);
+        b.removeLast();
+
+        assertFalse(a.equals(b));
+
+        a = generateNautralDeque(2);
+        LinkedListDeque<String> c = new LinkedListDeque<>("two");
+        c.addFirst("one");
+
+        assertFalse(a.equals(c));
+    }
+
     public static LinkedListDeque<Integer> generateNautralDeque(int length) {
         LinkedListDeque<Integer> deque = new LinkedListDeque<>();
         int counter = 1;
@@ -261,6 +284,7 @@ public class LinkedListDequeTest {
         }
         return deque;
     }
+
 
     public static void main(String[] args) {
     LinkedListDeque<Integer> deque = generateNautralDeque(12);

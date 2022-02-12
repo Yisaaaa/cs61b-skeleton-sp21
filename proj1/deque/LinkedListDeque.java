@@ -4,7 +4,7 @@ package deque;
 import java.util.function.ObjIntConsumer;
 
 public class LinkedListDeque<T> {
-    // sentinel is always 69
+
     public TNode sentinel;
     private int size = 0;
 
@@ -22,7 +22,20 @@ public class LinkedListDeque<T> {
     }
 
     public boolean equals(Object o) {
-        return o instanceof LinkedListDeque;
+        return (o.getClass() == LinkedListDeque.class) &&
+                ((LinkedListDeque<?>) o).size() == this.size() &&
+                equalsHelper((LinkedListDeque) o);
+    }
+
+    private boolean equalsHelper(LinkedListDeque other) {
+        int index = 0;
+        while (index< other.size()) {
+            if (other.get(index) != this.get(index)) {
+                return false;
+            }
+            index ++;
+        }
+        return true;
     }
 
     public void initializedSentinel() {

@@ -18,10 +18,9 @@ public class ArrayDeque<Bacon> {
     }
 
     public boolean equals(Object o) {
-        return o instanceof ArrayDeque &&
-                ((ArrayDeque<?>) o).items.getClass().isInstance(items.getClass()) &&
+        return (o.getClass() == ArrayDeque.class) &&
                 ((ArrayDeque<?>) o).length() == length() &&
-                equalsHelper((ArrayDeque<Bacon>) o);
+                equalsHelper((ArrayDeque) o);
     }
 
     public boolean equalsHelper(ArrayDeque other) {
@@ -40,6 +39,7 @@ public class ArrayDeque<Bacon> {
     }
 
     public void initializeArrayDeque() {
+        // items = (Bacon[]) new Object[8];
         items = (Bacon[]) new Object[8];
         size = 0;
         nextFront = 0;
@@ -204,18 +204,6 @@ public class ArrayDeque<Bacon> {
         a.removeLast();
         a.removeFirst();
         a.removeLast();
-        /**
-        a.addFirst(34);
-        a.addLast(87);
-        a.addFirst(31);
-        a.addFirst(65);
-        a.addLast(93);
-        System.out.println(a.getUsageRatio());
-        a.addLast(5);
-        a.addLast(17);
-        a.addFirst(67);
-        a.addLast(24);
-         */
 
     }
 }

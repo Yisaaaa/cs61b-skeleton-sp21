@@ -1,6 +1,9 @@
 package deque;
 
 import org.junit.Test;
+
+import java.security.Principal;
+
 import static org.junit.Assert.*;
 
 public class ArrayDequeTest{
@@ -53,64 +56,35 @@ public class ArrayDequeTest{
         assertEquals("12 23 2 45 4 7 11 1 17", b.stringArrayDeque());
     }
 
-
-/**
     @Test
-    public void addLastAndAddFirstTest() {
+    public void equalsTest() {
+        ArrayDeque<Integer> a;
+        ArrayDeque<Integer> b;
+        a = genNaturals(6);
+        b = genNaturals(6);
+        assertTrue(a.equals(b));
+
+        b.removeFirst();
+        b.addLast(345);
+        assertFalse(a.equals(b));
+
+        a = genNaturals(2);
+        ArrayDeque<String> c = new ArrayDeque<>("hello");
+        c.addFirst("hey");
+
+        assertFalse(a.equals(c));
+    }
+
+    public static ArrayDeque<Integer> genNaturals(int length) {
         ArrayDeque<Integer> a = new ArrayDeque<>();
-        ArrayDeque<Integer> b = new ArrayDeque<>();
-        int i = 1;
-        while (a.size() < 8) {
-            a.addLast(i);
-            b.addFirst(i);
-            i *= 2;
+        int counter = 1;
+        while (counter <= length) {
+            a.addFirst(counter);
+            counter++;
+            a.addLast(counter);
+            counter++;
         }
-        assertEquals("128 1 2 4 8 16 32 64", a.stringArrayDeque());
-        assertEquals("1 128 64 32 16 8 4 2", b.stringArrayDeque());
+        return a;
     }
-
-    public static void main(String[] args) {
-        ArrayDeque<String> a = new ArrayDeque<>();
-        System.out.println(a.get(3) == null);
-    }
-
-    @Test
-    public void removeFirstTest() {
-        ArrayDeque<Integer> a = new ArrayDeque<>();
-        for (int i = 1; i <= 8; i++) {
-            a.addFirst(i);
-        }
-
-        assertEquals(0, a.nextFront);
-        assertEquals(8, (int) a.removeFirst());
-        a.removeFirst();
-        a.removeFirst();
-        a.removeFirst();
-        a.removeFirst();
-        assertEquals(5, a.nextFront);
-        a.removeFirst();
-        a.removeFirst();
-        assertEquals(7, a.nextFront);
-        assertEquals("1 ", a.stringArrayDeque());
-        a.removeFirst();
-        assertNull(a.removeFirst());
-    }
-
-    @Test
-    public void removeLastTest() {
-        ArrayDeque<Integer> a = new ArrayDeque<>();
-        for (int i = 1; i <= 8; i++) {
-            a.addLast(i);
-        }
-
-        assertEquals(1, a.nextRear);
-        a.removeLast();
-        a.removeLast();
-        assertEquals(7, a.nextRear);
-
-        ArrayDeque<Integer> b = new ArrayDeque<>();
-        assertNull(b.removeLast());
-    }
-    */
 
 }
