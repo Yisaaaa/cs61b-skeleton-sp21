@@ -30,7 +30,7 @@ public class TimeSLList {
         AList<Double> t = new AList<>();
         AList<Integer> ops = new AList<>();
 
-        while (size <= 10000000) {
+        while (size <= 64000) {
             n.addLast(size);
             ops.addLast(10000);
             timeGetLast(size, t);

@@ -31,7 +31,7 @@ public class TimeAList {
         AList<Double> times = new AList<>();
         AList<Integer> ops = new AList<>();
 
-        while (size <= 128000) {
+        while (size <= 64000) {
             timeAListConstruction(size, n, times, ops);
             size *= 2;
         }
