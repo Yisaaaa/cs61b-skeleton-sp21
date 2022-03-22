@@ -52,7 +52,7 @@ public class ArrayDeque<Bacon> {
     }
 
     public Bacon get(int index) {
-        return items[index];
+        return items[(nextFront + 1 + index) % items.length];
     }
 
     public String stringArrayDeque() {
@@ -187,23 +187,8 @@ public class ArrayDeque<Bacon> {
     }
 
     public static void main(String[] args) {
-        ArrayDeque<Integer> a = new ArrayDeque<>(2);
-        a.addFirst(12);
-        a.addLast(23);
-        a.addFirst(17);
-        a.addLast(2);
-        a.addLast(45);
-        a.addLast(4);
-        a.addLast(7);
-        a.addLast(11);
-        a.removeLast();
-        a.removeFirst();
-        a.removeFirst();
-        a.removeFirst();
-        a.removeFirst();
-        a.removeLast();
-        a.removeFirst();
-        a.removeLast();
-
+        ArrayDeque<Integer> a = new ArrayDeque<>();
+        a.addLast(1);
+        a.addFirst(3);
     }
 }
