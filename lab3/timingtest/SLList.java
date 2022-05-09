@@ -1,5 +1,7 @@
 package timingtest;
 
+import edu.princeton.cs.algs4.Stopwatch;
+
 /** An SLList is a list of integers, which hides the terrible truth
  * of the nakedness within. */
 public class SLList<Item> {
@@ -74,8 +76,13 @@ public class SLList<Item> {
 
 	public static void main(String[] args) {
 		/* Creates a list of one integer, namely 10 */
-		SLList L = new SLList();
-		L.addLast(20);
-		System.out.println(L.size());
+		SLList<Integer> a = new SLList<>();
+		for (int i = 1; i <= 128000; i ++) {
+			a.addLast(i);
+		}
+		Stopwatch sw = new Stopwatch();
+		a.getLast();
+		double time = sw.elapsedTime();;
+		System.out.println(time);
 	}
 }
