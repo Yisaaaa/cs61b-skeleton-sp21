@@ -9,6 +9,19 @@ public class ArrayDeque<Bacon> {
     private Bacon[] items;
     private int maxIndex;
 
+    public ArrayDeque() {
+        initializeArrayDeque();
+    }
+
+    public void initializeArrayDeque() {
+        // items = (Bacon[]) new Object[8];
+        items = (Bacon[]) new Object[8];
+        size = 0;
+        nextFront = 0;
+        nextRear = 0;
+        maxIndex = items.length - 1;
+    }
+
     public ArrayDeque(Bacon x) {
         initializeArrayDeque();
         this.nextFront --;
@@ -32,19 +45,6 @@ public class ArrayDeque<Bacon> {
             index ++;
         }
         return true;
-    }
-
-    public ArrayDeque() {
-        initializeArrayDeque();
-    }
-
-    public void initializeArrayDeque() {
-        // items = (Bacon[]) new Object[8];
-        items = (Bacon[]) new Object[8];
-        size = 0;
-        nextFront = 0;
-        nextRear = 0;
-        maxIndex = items.length - 1;
     }
 
     public Boolean isEmpty() {
@@ -184,6 +184,10 @@ public class ArrayDeque<Bacon> {
     private void resizeShrink() {
         Bacon[] smallerItems = (Bacon[]) new Object[items.length / 2];
         resizeHelper(smallerItems);
+    }
+
+    public int getMaxIndex() {
+        return maxIndex;
     }
 
     public static void main(String[] args) {

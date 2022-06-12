@@ -1,58 +1,60 @@
 package deque;
-import org.junit.Test;
-import java.util.Comparator;
+
 import static org.junit.Assert.*;
+import org.junit.Test;
 
+import javax.naming.Name;
+import java.util.Comparator;
 
-class CompareByStudentNumber implements Comparator<Student> {
-    @Override
-    public int compare(Student student1, Student student2) {
-        if (student1.studentNumber == student2.studentNumber) {
-            return 0;
-        } else if (student1.studentNumber > student2.studentNumber) {
-            return 1;
-        } else {
-            return -1;
-        }
-    }
-}
+class Dog implements Comparable<Dog> {
 
-class CompareByGrade implements Comparator<Student> {
-
-    @Override
-    public int compare(Student student1, Student student2) {
-        if (student1.gradeLevel == student2.gradeLevel) {
-            return 0;
-        } else if (student1.studentNumber > student2.studentNumber) {
-            return 1;
-        } else {
-            return -1;
+    private static class NaturalComparator implements Comparator<Dog> {
+        public int compare(Dog a, Dog b) {
+            return a.compareTo(b);
         }
     }
 
+    private static class NameComparator implements Comparator<Dog> {
+        public int compare(Dog a, Dog b) {
+            return a.name.compareTo(b.name);
+        }
+    }
+
+    public static Comparator<Dog> getNaturalComparator() {
+        return new NaturalComparator();
+    }
+
+    public static Comparator<Dog> getNameComparator() {
+        return new NameComparator();
+    }
+
+    int size;
+    String name;
+
+    public Dog(String n, int s) {
+        name = n;
+        size = s;
+    }
+
+    public void bark() {
+        System.out.println(name + " barked!");
+    }
+
+    @Override
+    public int compareTo(Dog otherDog) {
+        return size - otherDog.size;
+    }
 }
 
 public class MaxArrayDequeTest {
 
     @Test
     public void maxNoArgumentTest() {
-
-        Comparator<Student> compareBySN = new CompareByStudentNumber();
-        Comparator<Student> compareByG = new CompareByGrade();
-        MaxArrayDeque<Student> a = new MaxArrayDeque<>(compareBySN);
-
-        a.addLast(new Student("Grey", 11, 3));
-        a.addLast(new Student("Nico", 12, 1234));
-        a.addLast(new Student("Uto", 4, 6));
-
-        int expected = 1234;
-        int actual = a.max().studentNumber;
-
-        assertEquals(actual, expected);
-
-        expected = 12;
-        actual = a.max(compareByG).gradeLevel;
-
+        MaxArrayDeque<Dog> dogs = new MaxArrayDeque<>(Dog.getNaturalComparator());
+        dogs.addLast(new Dog("Cadell", 8));
+        dogs.addLast(new Dog("Grey", 2));
+        dogs.addLast(new Dog("Nico", 5));
+        Dog maxDog = dogs.max();
+        maxDog.bark();
     }
-
 }

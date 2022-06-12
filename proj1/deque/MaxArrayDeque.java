@@ -1,59 +1,32 @@
 package deque;
 
-import java.lang.reflect.InaccessibleObjectException;
 import java.util.Comparator;
 
+public class MaxArrayDeque<Item> extends ArrayDeque<Item> {
 
-public class MaxArrayDeque<T> extends ArrayDeque<T> {
+    private Comparator<Item> comparator;
 
-
-
-//---------------------------------------------------//
-
-    Comparator<T> comparator;
-
-    public MaxArrayDeque(Comparator<T> c) {
-        super();
+    public MaxArrayDeque(Comparator<Item> c) {
         comparator = c;
     }
 
-    public T max() {
-
-        if (size() == 0) {
+    public Item max(Comparator<Item> c) {
+        if (isEmpty()) {
             return null;
         }
 
-        T max = get(0);
-        for (int i = 1; i < size(); i++) {
-            T current = get(i);
-            if (comparator.compare(current, max) == 1) {
-                max = current;
+        Item maxItem = get(0);
+        for (int i = 1; i <= size() - 1; i++) {
+            Item currentItem = get(i);
+            if (c.compare(currentItem, maxItem) > 0) {
+                maxItem = currentItem;
             }
         }
-        return max;
+        return maxItem;
     }
 
-    public T max(Comparator<T> c) {
-
-        if (size() == 0) {
-            return null;
-        }
-
-        T max = get(0);
-        for (int i = 1; i < size(); i++) {
-            T current = get(i);
-            if (c.compare(current, max) == 1) {
-                max = current;
-            }
-        }
-        return max;
-    }
-
-
-    public static void main(String[] args) {
-
-
-
+    public Item max() {
+        return max(comparator);
     }
 
 }

@@ -22,8 +22,9 @@ public class ArrayDequeTest{
         assertEquals(0, a.nextFront);
         assertEquals(true, a.isFull());
         a.addFirst(123);
-        assertEquals(12, (int) a.get(0));
+        assertEquals(123, (int) a.get(0));
         a.addFirst(234);
+        assertEquals(234, (int) a.get(0));
 
     }
 
