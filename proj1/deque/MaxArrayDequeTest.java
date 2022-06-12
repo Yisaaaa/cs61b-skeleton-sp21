@@ -55,6 +55,19 @@ public class MaxArrayDequeTest {
         dogs.addLast(new Dog("Grey", 2));
         dogs.addLast(new Dog("Nico", 5));
         Dog maxDog = dogs.max();
-        maxDog.bark();
+
+        assertEquals("Cadell", maxDog.name);
+
+    }
+
+    @Test
+    public void maxWithArgumentTest() {
+        MaxArrayDeque<Dog> dogs = new MaxArrayDeque<>(Dog.getNaturalComparator());
+        dogs.addLast(new Dog("Cadell", 8));
+        dogs.addLast(new Dog("Grey", 2));
+        dogs.addLast(new Dog("Nico", 5));
+        Dog maxDog = dogs.max(Dog.getNameComparator());
+
+        assertEquals("Nico", maxDog.name);
     }
 }
