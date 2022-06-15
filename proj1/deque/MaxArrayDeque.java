@@ -26,7 +26,9 @@ public class MaxArrayDeque<Item> extends ArrayDeque<Item> {
     }
 
     public Item max() {
-        return max(comparator);
+        return max(this.comparator);
     }
+
+
 
 }
