@@ -70,4 +70,5 @@ public class MaxArrayDequeTest {
 
         assertEquals("Nico", maxDog.name);
     }
+
 }

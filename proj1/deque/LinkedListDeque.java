@@ -21,6 +21,25 @@ public class LinkedListDeque<T> {
         }
     }
 
+    public void initializedSentinel() {
+        sentinel = new TNode(null, null, null);
+        sentinel.next = sentinel; sentinel.prev = sentinel;
+    }
+
+    public LinkedListDeque() {
+        initializedSentinel();
+    }
+
+    public LinkedListDeque(T i) {
+        initializedSentinel();
+        this.addFirst(i);
+    }
+
+    public <TT> LinkedListDeque<TT> of(TT... items) {
+        
+    }
+
+    @Override
     public boolean equals(Object o) {
         return (o.getClass() == LinkedListDeque.class) &&
                 ((LinkedListDeque<?>) o).size() == this.size() &&
@@ -36,20 +55,6 @@ public class LinkedListDeque<T> {
             index ++;
         }
         return true;
-    }
-
-    public void initializedSentinel() {
-        sentinel = new TNode(null, null, null);
-        sentinel.next = sentinel; sentinel.prev = sentinel;
-    }
-
-    public LinkedListDeque() {
-        initializedSentinel();
-    }
-
-    public LinkedListDeque(T i) {
-        initializedSentinel();
-        this.addFirst(i);
     }
 
     public void addFirst(T item) {
@@ -86,17 +91,17 @@ public class LinkedListDeque<T> {
         return this.size;
     }
 
-    public void printDeque() {
-        System.out.println(printDequeHelper());
-    }
-    public String printDequeHelper() {
-        String stringDeque = "";
-        TNode currNode = sentinel.next;
-        while (currNode != sentinel.prev) {
-            stringDeque += currNode.item + " ";
-            currNode = currNode.next;
+    @Override
+    public String toString() {
+        StringBuilder string = new StringBuilder("{");
+        for (TNode node = sentinel.next; node != null; node = node.next) {
+            if (node.next == null) {
+                string.append(node.item.toString() + "}");
+            } else {
+                string.append(node.item.toString() + ", ");
+            }
         }
-        return stringDeque + currNode.item;
+        return string.toString();
     }
 
     public T removeFirst() {

@@ -1,5 +1,8 @@
 package deque;
 
+import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.StdRandom;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.security.Principal;
@@ -41,7 +44,7 @@ public class ArrayDequeTest{
         a.addLast(7);
         a.addFirst(11);
 
-        assertEquals("12 23 2 45 4 7 11 1 17", a.stringArrayDeque());
+        assertEquals("12 23 2 45 4 7 11 1 17", a.toString());
         assertEquals(16, a.length());
 
         ArrayDeque<Integer> b = new ArrayDeque<>();
@@ -54,7 +57,7 @@ public class ArrayDequeTest{
         b.addLast(4);
         b.addLast(7);
         b.addFirst(11);
-        assertEquals("12 23 2 45 4 7 11 1 17", b.stringArrayDeque());
+        assertEquals("12 23 2 45 4 7 11 1 17", b.toString());
     }
 
     @Test
@@ -76,6 +79,41 @@ public class ArrayDequeTest{
         assertFalse(a.equals(c));
     }
 
+    @Test
+    public void BasicTest() {
+        ArrayDeque<Integer> AD = new ArrayDeque<>();
+        LinkedListDeque<Integer> LD = new LinkedListDeque<>();
+        int N = 100000;
+        int operationValue = StdRandom.uniform(0, 5);
+        int i;
+        for (i = 1; i <= N; i++) {
+            if (operationValue == 0) {
+                int randomValue = StdRandom.uniform(1, 500);
+                AD.addFirst(randomValue);
+                LD.addFirst(randomValue);
+            } else if (operationValue == 1) {
+                int randomValue = StdRandom.uniform(1, 500);
+                AD.addLast(randomValue);
+                LD.addLast(randomValue);
+            } else if (AD.size() > 0) {
+                if (operationValue == 2) {
+                    int randomValue = StdRandom.uniform(0, LD.size());
+                    assertEquals(AD.get(randomValue), LD.get(randomValue));
+                } else if (operationValue == 3) {
+                    int removedAD = AD.removeFirst();
+                    int removeLD = LD.removeFirst();
+
+                    assertEquals(removeLD, removedAD);
+                } else if (operationValue == 4) {
+                    int removedAD = AD.removeLast();
+                    int removedLD = LD.removeLast();
+
+                    assertEquals(removedLD, removedAD);
+                }
+            }
+        }
+    }
+
     public static ArrayDeque<Integer> genNaturals(int length) {
         ArrayDeque<Integer> a = new ArrayDeque<>();
         int counter = 1;
@@ -87,5 +125,4 @@ public class ArrayDequeTest{
         }
         return a;
     }
-
 }
