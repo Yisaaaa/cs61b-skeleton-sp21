@@ -35,8 +35,12 @@ public class LinkedListDeque<T> {
         this.addFirst(i);
     }
 
-    public <TT> LinkedListDeque<TT> of(TT... items) {
-        
+    public static <TT> LinkedListDeque<TT> of(TT... items) {
+        LinkedListDeque<TT> LLD = new LinkedListDeque<>();
+        for (TT item : items) {
+            LLD.addLast(item);
+        }
+        return LLD;
     }
 
     @Override
@@ -57,6 +61,7 @@ public class LinkedListDeque<T> {
         return true;
     }
 
+    /**
     public void addFirst(T item) {
         size ++;
         if (sentinel.next.equals(sentinel)) {
@@ -69,6 +74,14 @@ public class LinkedListDeque<T> {
 
     public void addFirstHelper(T item) {
         TNode newNode = new TNode(item, sentinel.prev, sentinel);
+        sentinel.next.prev = newNode;
+        sentinel.next = newNode;
+    }
+    */
+
+    public void addFirst(T item) {
+        size ++;
+        TNode newNode = new TNode(item, sentinel.next, sentinel);
         sentinel.next.prev = newNode;
         sentinel.next = newNode;
     }
@@ -94,8 +107,8 @@ public class LinkedListDeque<T> {
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder("{");
-        for (TNode node = sentinel.next; node != null; node = node.next) {
-            if (node.next == null) {
+        for (TNode node = sentinel.next; node.item != null; node = node.next) {
+            if (node.next.item == null) {
                 string.append(node.item.toString() + "}");
             } else {
                 string.append(node.item.toString() + ", ");
@@ -165,8 +178,12 @@ public class LinkedListDeque<T> {
 
     public static void main(String[] args) {
         LinkedListDeque<Integer> deq = new LinkedListDeque<>(12);
-        deq.addFirst(34);
-        deq.addFirst(23);
-        deq.addFirst(72);
+        deq.addLast(34);
+        deq.addLast(23);
+        deq.addLast(72);
+        System.out.println(deq);
+
+        LinkedListDeque<Integer> deq2 = LinkedListDeque.of(12, 34, 23, 72);
+        System.out.println(deq2);
     }
 }

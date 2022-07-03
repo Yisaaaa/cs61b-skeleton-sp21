@@ -2,7 +2,7 @@ package deque;
 
 import jh61b.junit.In;
 import org.junit.Test;
-import org.junit.Assert;
+import static org.junit.Assert.*;
 
 import java.util.spi.LocaleNameProvider;
 
@@ -35,7 +35,7 @@ public class LinkedListDequeTest {
 		assertEquals(3, lld1.size());
 
 		System.out.println("Printing out deque: ");
-		lld1.printDeque();
+		System.out.println(lld1);
     }
 
     @Test
@@ -190,13 +190,13 @@ public class LinkedListDequeTest {
     @Test
     public void printDequeTest() {
         LinkedListDeque<Integer> deque = generateNautralDeque(4);
-        String expected = "1 2 3 4";
-        String result = deque.printDequeHelper();
+        String expected = "{1, 2, 3, 4}";
+        String result = deque.toString();
         assertEquals(expected, result);
 
         LinkedListDeque<Integer> dequeLonger = generateNautralDeque(13);
-        expected = "1 2 3 4 5 6 7 8 9 10 11 12 13";
-        result = dequeLonger.printDequeHelper();
+        expected = "{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}";
+        result = dequeLonger.toString();
         assertEquals(expected, result);
     }
 
@@ -283,12 +283,6 @@ public class LinkedListDequeTest {
             counter ++;
         }
         return deque;
-    }
-
-
-    public static void main(String[] args) {
-    LinkedListDeque<Integer> deque = generateNautralDeque(12);
-    deque.printDeque();
     }
 
 }

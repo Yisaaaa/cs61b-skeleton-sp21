@@ -1,212 +1,405 @@
 package deque;
 
-public class ArrayDeque<Bacon> {
-    // Todo Do everything in the deque APi
+import com.sun.source.tree.LiteralTree;
+import edu.princeton.cs.algs4.StdRandom;
 
-    public int nextFront;
-    public int nextRear;
-    private int size;
-    private Bacon[] items;
-    private int maxIndex;
+public class ArrayDeque<Bacon> {
+
+    Bacon[] items;
+    int size;
+    int nextFrontIndex;
+    int nextBackIndex;
 
     public ArrayDeque() {
-        initializeArrayDeque();
-    }
-
-    public void initializeArrayDeque() {
-        // items = (Bacon[]) new Object[8];
         items = (Bacon[]) new Object[8];
         size = 0;
-        nextFront = 0;
-        nextRear = 0;
-        maxIndex = items.length - 1;
+        nextFrontIndex = 1;
+        nextBackIndex = 2;
     }
 
-    public ArrayDeque(Bacon x) {
-        initializeArrayDeque();
-        this.nextFront --;
-        this.nextRear ++;
-        this.items[0] = x;
-        size ++;
-    }
 
-    public static <Egg> ArrayDeque<Egg> of(Egg... items) {
-        ArrayDeque<Egg> arrayDeque = new ArrayDeque<>();
-        for (Egg item : items) {
-            arrayDeque.addLast(item);
-        }
-        return arrayDeque;
-    }
-
-    public boolean equals(Object o) {
-        return (o.getClass() == ArrayDeque.class) &&
-                ((ArrayDeque<?>) o).length() == length() &&
-                equalsHelper((ArrayDeque) o);
-    }
-
-    public boolean equalsHelper(ArrayDeque other) {
-        int index = 0;
-        while (index < length()) {
-            if (other.get(index) != get(index)) {
-                return false;
-            }
-            index ++;
-        }
-        return true;
-    }
-
-    public Boolean isEmpty() {
+    // returns a boolean if deque is empty or not
+    public boolean isEmpty() {
+        /** We say the deque is empty if
+            1. The size is equal to 0
+            2. The nextFront and nextBack indices is also
+                equal to 0 **/
         return size == 0;
     }
 
-    public Bacon get(int index) {
-        return items[(nextFront + 1 + index) % items.length];
-    }
 
-    @Override
-    public String toString() {
-        StringBuilder string = new StringBuilder("{");
-        for (int i = 0; i < length(); i ++) {
-            if (items[i] != null) {
-                if (i == length() - 1) {
-                    string.append(items[i].toString() + "}");
-                } else {
-                    string.append(items[i].toString() + ", ");
-                }
-            }
-        }
-    return string.toString();
-    }
 
+    // Returns this.size
     public int size() {
-        return size;
+        return this.size;
     }
 
-    public double getUsageRatio() {
-        return size() / (double) length();
+
+
+    // Prints the items in the deque
+    public void printDeque() {
+        System.out.println(this);
     }
 
-    public int length() {
-        return items.length;
-    }
 
-    public Boolean isFull() {
+
+    // returns a boolean if deque is full
+    public boolean isFull() {
+        /* We say the deque if full if
+        * 1. The size is equal to the items.length */
         return size == items.length;
     }
 
-    // cut the array in half if this returns true
-    public boolean shouldBeShrinked() {
-        return getUsageRatio() < 0.25;
+
+
+
+
+
+    // Returns a deque containing bacons
+    public static <Bacon> ArrayDeque<Bacon> of(Bacon... bacons) {
+
+        ArrayDeque<Bacon> newArray = new ArrayDeque<>();
+
+        for (Bacon bacon : bacons) {
+            int randomInt = StdRandom.uniform(0, 2);
+            if (randomInt == 0) { // addFirst
+                newArray.addFirst(bacon);
+            } else {
+                newArray.addLast(bacon);
+            }
+        }
+        return newArray;
     }
 
-    public void addFirst(Bacon x) {
+
+
+
+
+
+
+    /*******************************
+     *      Get Operations
+     **/
+    // Returns the length of deque.items
+    public int getLength() {
+        return this.items.length;
+    }
+
+
+    // Returns the item on the front of the deque
+    public Bacon getFront() {
+        return getByArrayIndex(nextFrontIndex + 1);
+    }
+
+    // Returns te item on the back of the deque
+    public Bacon getBack() {
+        return getByArrayIndex(nextBackIndex - 1);
+    }
+
+    // Returns the index of the item on the back of the deque
+    public int getBackIndex() {
+        return mod(nextBackIndex - 1, 8);
+    }
+
+    // Returns the index of the item on the front of the deque
+    public int getFrontIndex() {
+        return mod(nextFrontIndex + 1, 8);
+    }
+
+    /* Returns the nth bacon in the array
+    * without regards to the circular aspect
+    * of the deque i.e. get on deque.items */
+    public Bacon getByArrayIndex(int index) {
+        if (index > getMaxIndex() || index < 0) {
+            return null;
+        }
+        return this.items[index];
+    }
+
+    /* Returns the index nth bacon in the deque
+    * with respect to its circular nature.
+    * i.e. the start or 0th index of the deque
+    * is nextFrontIndex + 1.
+    *  */
+    public Bacon get(int index) {
+        int circularIndex = mod(getFrontIndex() + index, items.length);
+        return getByArrayIndex(circularIndex);
+    }
+
+    public int getMaxIndex() {
+        // returns the maxIndex given by length of items - 1
+        return items.length - 1;
+    }
+
+
+
+
+    @Override
+    // Returns the string representation of current deque instance
+    public String toString() {
+        // Change toString so that it respects the array deque
+        StringBuilder string = new StringBuilder("{");
+
+        for (int i = 0; i < size; i += 1) {
+            if (i == size - 1) {
+                string.append(get(i).toString() + "}");
+            } else {
+                string.append(get(i).toString() + ", ");
+        }
+    }
+        return string.toString();
+    }
+
+
+
+
+
+
+
+    // returns the value of num modulo (%) denom expression
+    public static int mod(int num, int denom) {
+
+        return ((num % denom) + denom) % denom;
+    }
+
+
+    // decrements the given int index by 1
+    public int minusOne(int index) {
+        return mod(index - 1, items.length); // e.g -1 % 8 = 7
+    }
+
+
+    // increments the given int index by 1
+    public int addOne(int index) {
+        return mod(index + 1, items.length); // e.g 8 % 8 = 0
+    }
+
+
+    // returns the next nextFrontIndex
+    public int getNextNextFrontIndex() {
+        return minusOne(nextFrontIndex);
+    }
+
+
+    // returns the next nextBackIndex
+    public int getNextNextBackIndex() {
+        return addOne(nextBackIndex);
+    }
+
+
+
+
+    //===============================================
+    //         Add Operations
+    /**
+     * nextBackIndex increments
+     *
+     * nextFrontIndex decrements
+     **/
+    // Adds Bacon item to the nextFrontIndex
+    public void addFirst(Bacon item) {
         if (isFull()) {
-            System.out.println("array is full, resizing...");
-            resizeGrow(size * 2);
+            System.out.println("deque is Full");
+            return;
+        } else {
+            items[nextFrontIndex] = item;
+            nextFrontIndex = getNextNextFrontIndex();
         }
-
-        if (nextFront == -1) {
-            nextFront = maxIndex;
-        }
-        else if (nextFront == 0) {
-            nextRear ++;
-        }
-        items[nextFront] = x;
-        nextFront --;
-        size ++;
+        size += 1;
     }
 
-    public void addLast(Bacon x) {
-        if (isFull()) {
-            System.out.println("array is full, resizing...");
-            resizeGrow(size * 2);
+    // Adds Bacon item to the nextBackIndex
+    public void addLast(Bacon item) {
+        if(isFull()) {
+            System.out.println("deque is Full");
+            return;
+        } else {
+            items[nextBackIndex] = item;
+            nextBackIndex = getNextNextBackIndex();
         }
-
-        if (nextRear > maxIndex) {
-            nextRear = 0;
-        }
-        else if (nextRear == 0) {
-            nextFront --;
-        }
-        items[nextRear] = x;
-        nextRear ++;
-        size ++;
+        size += 1;
     }
 
-    private Bacon remove(int index) {
-        Bacon removedItem = this.items[index];
+
+
+
+    /************************************
+     *      Remove Operations
+     *
+     * nextBackIndex decrements
+     *
+     * nextFrontIndex increments
+     *
+     */
+
+    // Removes and returns the item at nth index
+    public Bacon remove(int index) {
+        if (index < 0 || index >= items.length) {
+            return null;
+        }
+        Bacon removed = getByArrayIndex(index);
         this.items[index] = null;
-        if (shouldBeShrinked()) {
-            System.out.println("ArrayDeque is shrinking...");
-            resizeShrink();
-        }
-        return removedItem;
+        size -= 1;
+        return removed;
     }
 
+    // Removes and returns the item on the front of the deque
     public Bacon removeFirst() {
         if (isEmpty()) {
             return null;
         }
-        size --;
-        Bacon removedItem;
-        if (nextFront == maxIndex) {
-            removedItem = remove(0);
-            nextFront = 0;
-        } else {
-            removedItem = remove(nextFront + 1);
-            nextFront ++;
-        }
-        return removedItem;
+        Bacon removed = remove(getFrontIndex());
+        nextFrontIndex = addOne(nextFrontIndex);
+        return removed;
     }
 
+    // Removes and returns the item on the back of the deque
     public Bacon removeLast() {
         if (isEmpty()) {
             return null;
         }
-        size --;
-        Bacon removedItem ;
-        if (nextRear == 0) {
-            removedItem = remove(maxIndex);
-            nextRear = maxIndex;
-        } else {
-            removedItem = remove(nextRear - 1);
-            nextRear --;
+        Bacon removed = remove(getBackIndex());
+        nextBackIndex = minusOne(nextBackIndex);
+        return removed;
+    }
+
+
+
+    /*
+
+    * Implement resize function
+    * The usage ratio if less than .25 or 25% should be shrunk down
+    * i.e. deque size / deque length < .25
+    *
+    * */
+
+
+    /*****************************
+    *       Resize Operations
+    *
+    * */
+
+    // Resize the deque
+    public void resize() {
+        /* shrink down if the usage ratio is less than .25 or 25%
+           of the length of the deque.items
+         */
+        if (((double) size / items.length) < .25) {
+            resizeHelper(items.length / 2);
+        } else if (isFull()) {
+            resizeHelper(items.length * 2);
         }
-        return removedItem;
     }
 
-    private void resizeHelper(Bacon[] newArray) {
-        // from 0 to the very rear
-        System.arraycopy(items, 0, newArray, 0, nextRear);
+    public void resizeHelper(int amount) {
+        if (amount < size) {
+            System.out.println("Deque cannot be resized...");
+            return;
+        }
+        // Check if front bacon went around the deque.items
+        if (frontWentAround()) {
+            copyHelperFrontWentAround(amount);
+        } else if (backWentAround()) {
+            copyHelperBackWentAround(amount);
+        } else {
+            copyHelperNoWentAround(amount);
+        }
+        nextFrontIndex = 0; // 0 because we copied the bacon to index 1
+        nextBackIndex = size + 1;
+    }
 
-        // from the back of the array to the very front
-        int newMaxIndex = newArray.length - 1;
-        int startIndex = 1 + newMaxIndex - (maxIndex - nextFront);
-        System.arraycopy(items, nextFront + 1, newArray, startIndex , maxIndex - nextFront);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Returns a boolean if front bacon went around the deque.items
+    public boolean frontWentAround() {
+        return getFrontIndex() > getBackIndex();
+    }
+
+    // Returns a boolean if back bacon went around the deque.items
+    public boolean backWentAround() {
+        return getBackIndex() < getFrontIndex();
+    }
+
+
+    // Copies the bacon from deque.items to a new array with length amount
+    public void copyHelperFrontWentAround(int amount) {
+        Bacon[] largerItems = (Bacon[]) new Object[amount];
+        /* There is two copy here. */
+        int dest = 1;
+
+        /* First copy -- is to copy the bacons that went around
+         *  the deque.items */
+        int copyLength = items.length - getFrontIndex();
+        System.arraycopy(items, getFrontIndex(), largerItems, dest, copyLength);
+
+        /* Second copy -- is to copy the bacons starting from 0th index of
+        *  deque.items to the new array*/
+        dest += copyLength;
+        copyLength = nextBackIndex;
+        System.arraycopy(items, 0, largerItems, dest, copyLength);
+
+        // Reassign the deque.items
+        this.items = largerItems;
+    }
+
+    // Copies the bacon from deque.items to a new array with length amount
+    public void copyHelperBackWentAround(int amount) {
+        Bacon[] largerItems = (Bacon[]) new Object[amount];
+        /* There is two copy here. */
+        int dest = 1;
+        int numOfBaconsWentAround = nextBackIndex + 1;
+
+        /* First copy -- is to copy the bacons starting from
+           frontIndex to starting from 0 index
+           of the new array */
+        int copyLength = size - numOfBaconsWentAround;
+        System.arraycopy(items, getFrontIndex(), largerItems, dest, copyLength);
+
+        /* Second copy -- is to copy the bacons that went around */
+        dest += copyLength;
+        copyLength = numOfBaconsWentAround;
+        System.arraycopy(items, 0, largerItems, dest, copyLength);
+
+        // Reassign the deque.items
+        this.items = largerItems;
+    }
+
+    public void copyHelperNoWentAround(int amount) {
+        Bacon[] newArray = (Bacon[]) new Object[amount];
+        /* There's only one copy here.
+        *  It is to copy from (frontIndex to backIndex)
+        *  starting from the 1 index of the array */
+        int dest = 1;
+        int copyLength = size;
+        System.arraycopy(items, getFrontIndex(), newArray, dest, copyLength);
+
         this.items = newArray;
-        nextFront = startIndex - 1;
-        maxIndex = newMaxIndex;
     }
 
-    // change all array is full condition in add method to resizing
-    private void resizeGrow(int amount) {
-        Bacon[] newItems = (Bacon[]) new Object[amount];
-        resizeHelper(newItems);
-    }
 
-    private void resizeShrink() {
-        Bacon[] smallerItems = (Bacon[]) new Object[items.length / 2];
-        resizeHelper(smallerItems);
-    }
 
-    public int getMaxIndex() {
-        return maxIndex;
-    }
+
+
+
+
+
+
+
 
     public static void main(String[] args) {
-        ArrayDeque<Integer> a = new ArrayDeque<>();
-        a.addLast(1);
-        a.addFirst(3);
-
+        System.out.println(8 / 3);
     }
+
 }
