@@ -1,6 +1,5 @@
 package deque;
 
-import com.sun.source.tree.LiteralTree;
 import edu.princeton.cs.algs4.StdRandom;
 
 public class ArrayDeque<Bacon> {
@@ -15,6 +14,11 @@ public class ArrayDeque<Bacon> {
         size = 0;
         nextFrontIndex = 1;
         nextBackIndex = 2;
+    }
+
+    public ArrayDeque(Bacon bacon) {
+        this();
+        this.addFirst(bacon);
     }
 
 
@@ -137,7 +141,6 @@ public class ArrayDeque<Bacon> {
     @Override
     // Returns the string representation of current deque instance
     public String toString() {
-        // Change toString so that it respects the array deque
         StringBuilder string = new StringBuilder("{");
 
         for (int i = 0; i < size; i += 1) {
@@ -200,6 +203,7 @@ public class ArrayDeque<Bacon> {
     public void addFirst(Bacon item) {
         if (isFull()) {
             System.out.println("deque is Full");
+            System.out.println("resizing...");
             return;
         } else {
             items[nextFrontIndex] = item;

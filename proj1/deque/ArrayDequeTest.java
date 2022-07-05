@@ -52,14 +52,35 @@ public class ArrayDequeTest {
     public void randomizedTest() {
         ArrayDeque<Integer> AD = new ArrayDeque<>();
         LinkedListDeque<Integer> LD = new LinkedListDeque<>();
-        int N = 500;
+        int N = 50000;
+        int operationValue = StdRandom.uniform(0, 5);
+        int i;
+        for (i = 1; i <= N; i++) {
+            if (operationValue == 0) {
+                int randomValue = StdRandom.uniform(1, 500);
+                AD.addFirst(randomValue);
+                LD.addFirst(randomValue);
+            } else if (operationValue == 1) {
+                int randomValue = StdRandom.uniform(1, 500);
+                AD.addLast(randomValue);
+                LD.addLast(randomValue);
+            } else if (AD.size() > 0) {
+                if (operationValue == 2) {
+                    int randomValue = StdRandom.uniform(0, LD.size());
+                    assertEquals(AD.get(randomValue), LD.get(randomValue));
+                } else if (operationValue == 3) {
+                    int removedAD = AD.removeFirst();
+                    int removeLD = LD.removeFirst();
 
-        for (int i = 0; i < N; i += 1) {
-            int operationNumber = StdRandom.uniform(0, 3); // 0, 1, 2
-
+                    assertEquals(removeLD, removedAD);
+                } else if (operationValue == 4) {
+                    int removedAD = AD.removeLast();
+                    int removedLD = LD.removeLast();
+                    assertEquals(removedLD, removedAD);
+                }
+            }
         }
     }
-
 
 
     @Test

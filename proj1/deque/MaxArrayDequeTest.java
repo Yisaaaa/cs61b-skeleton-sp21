@@ -1,13 +1,11 @@
 
-/*
 
 package deque;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-
-import javax.naming.Name;
 import java.util.Comparator;
+
 
 class Dog implements Comparable<Dog> {
 
@@ -49,6 +47,7 @@ class Dog implements Comparable<Dog> {
     }
 }
 
+
 public class MaxArrayDequeTest {
 
     @Test
@@ -75,5 +74,3 @@ public class MaxArrayDequeTest {
     }
 
 }
-
- */

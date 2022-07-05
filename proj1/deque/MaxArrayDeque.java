@@ -1,39 +1,34 @@
-
-/*
 package deque;
 
 import java.util.Comparator;
 
-public class MaxArrayDeque<Item> extends ArrayDeque<Item> {
+public class MaxArrayDeque<Bacon> extends ArrayDeque<Bacon> {
 
-    private Comparator<Item> comparator;
+    private Comparator<Bacon> comparator;
 
-    public MaxArrayDeque(Comparator<Item> c) {
+    public MaxArrayDeque(Comparator<Bacon> c) {
         comparator = c;
     }
 
-    public Item max(Comparator<Item> c) {
-        if (isEmpty()) {
-            return null;
-        }
+    public MaxArrayDeque(Comparator<Bacon> c, Bacon bacon) {
+        super(bacon);
+        comparator = c;
+    }
 
-        Item maxItem = get(0);
-        for (int i = 1; i <= size() - 1; i++) {
-            Item currentItem = get(i);
-            if (c.compare(currentItem, maxItem) > 0) {
-                maxItem = currentItem;
+    public Bacon max(Comparator<Bacon> c) {
+        Bacon max = get(0);
+
+        for (int i = 1; i < size; i += 1) {
+            Bacon currentBacon = get(i);
+            if (c.compare(max, currentBacon) < 0) {
+                max = currentBacon;
             }
         }
-        return maxItem;
+        return max;
     }
 
-    public Item max() {
-        return max(this.comparator);
+    public Bacon max() {
+        return max(comparator);
     }
-
-
 
 }
-
-
- */
