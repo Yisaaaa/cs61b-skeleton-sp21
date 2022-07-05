@@ -1,3 +1,4 @@
+/*
 package deque;
 
 import java.util.Comparator;
@@ -31,4 +32,4 @@ public class MaxArrayDeque<Bacon> extends ArrayDeque<Bacon> {
         return max(comparator);
     }
 
-}
+} */

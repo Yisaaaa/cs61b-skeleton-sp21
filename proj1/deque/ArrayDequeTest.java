@@ -1,7 +1,9 @@
+
+
 package deque;
 
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.StdRandom;
+
+import edu.princeton.cs.introcs.StdRandom;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -9,7 +11,64 @@ import static org.junit.Assert.*;
 
 public class ArrayDequeTest {
 
+    @Test
+    public void addFirstRemoveLastIsEmptyTest() {
+        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        int N = 8;
+        for (int i = 0; i < N; i++) {
+            deque.addFirst(i);
+        }
+        for (int i = 0; i < N; i++) {
+            assertEquals(i, (int) deque.removeLast());
+        }
 
+        assertTrue(deque.isEmpty());
+    }
+
+    @Test
+    public void addLastRemoveFirstIsEmptyTest() {
+        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        int N = 8;
+        for (int i = 0; i < N; i++) {
+            deque.addLast(i);
+        }
+        for (int i = 0; i < N; i++) {
+            assertEquals(i, (int) deque.removeFirst());
+        }
+
+        assertTrue(deque.isEmpty());
+    }
+
+    @Test
+    public void RandomAddEmptyAddTest() {
+        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        int N = 8;
+
+        int bacons[] = new int[8];
+        for (int i = 0; i < N; i++) {
+            int randomInt = StdRandom.uniform(0, 2);
+
+            if (randomInt == 0) {
+                bacons[deque.decrement(deque.getFrontIndex())] = i;
+                deque.addFirst(i);
+            } else {
+                bacons[deque.increment(deque.getBackIndex())] = i;
+                deque.addLast(i);
+            }
+        }
+        for (int i = 0; i < N; i++) {
+            int randomInt = StdRandom.uniform(0, 2);
+
+            if (randomInt == 0) {
+                assertEquals(bacons[deque.getFrontIndex()], (int) deque.removeFirst());
+            } else {
+                assertEquals(bacons[deque.getBackIndex()], (int) deque.removeLast());
+            }
+        }
+
+    }
+
+/*
     @Test
     public void addRemoveTest() {
         ArrayDeque<Integer> AD = new ArrayDeque<>();
@@ -52,7 +111,7 @@ public class ArrayDequeTest {
     public void randomizedTest() {
         ArrayDeque<Integer> AD = new ArrayDeque<>();
         LinkedListDeque<Integer> LD = new LinkedListDeque<>();
-        int N = 50000;
+        int N = 500000;
         int operationValue = StdRandom.uniform(0, 5);
         int i;
         for (i = 1; i <= N; i++) {
@@ -140,5 +199,5 @@ public class ArrayDequeTest {
         deque.resizeHelper(4);
         assertEquals(16, deque.getLength());
     }
-
+*/
 }
