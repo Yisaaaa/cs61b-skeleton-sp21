@@ -75,8 +75,7 @@ public class ArrayDeque<Bacon> {
 
     public void addFirst(Bacon bacon) {
         if (isFull()) {
-            System.out.println("deque is full");
-            return;
+            resize();
         }
 
         bacons[nextFrontIndex] = bacon;
@@ -86,8 +85,7 @@ public class ArrayDeque<Bacon> {
 
     public void addLast(Bacon bacon) {
         if (isFull()) {
-            System.out.println("deque is full");
-            return;
+            resize();
         }
 
         bacons[nextBackIndex] = bacon;
@@ -104,6 +102,7 @@ public class ArrayDeque<Bacon> {
         Bacon removed = bacons[index];
         size -= 1;
         bacons[index] = null;
+        resize();
         return removed;
     }
 
