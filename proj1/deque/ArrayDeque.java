@@ -102,7 +102,6 @@ public class ArrayDeque<Bacon> {
         Bacon removed = bacons[index];
         size -= 1;
         bacons[index] = null;
-        resize();
         return removed;
     }
 
@@ -112,6 +111,7 @@ public class ArrayDeque<Bacon> {
         }
         Bacon removed = remove(getFrontIndex());
         nextFrontIndex = increment(nextFrontIndex);
+        resize();
         return removed;
     }
 
@@ -121,6 +121,7 @@ public class ArrayDeque<Bacon> {
         }
         Bacon removed = remove(getBackIndex());
         nextBackIndex = decrement(nextBackIndex);
+        resize();
         return removed;
     }
 
@@ -136,8 +137,8 @@ public class ArrayDeque<Bacon> {
         }
     }
 
-    public void resizeHelper(int size) {
-        Bacon[] newArray = (Bacon[]) new Object[size];
+    public void resizeHelper(int amount) {
+        Bacon[] newArray = (Bacon[]) new Object[amount];
 
         if (getFrontIndex() > getBackIndex()) {
             int startingSrcPos = bacons.length - getFrontIndex();

@@ -33,39 +33,11 @@ public class ArrayDequeTest {
             deque.addLast(i);
         }
         for (int i = 0; i < N; i++) {
-            assertEquals(i, (int) deque.removeFirst());
+            int bacon = deque.removeFirst();
+            assertEquals(i, bacon);
         }
 
         assertTrue(deque.isEmpty());
-    }
-
-    @Test
-    public void RandomAddEmptyAddTest() {
-        ArrayDeque<Integer> deque = new ArrayDeque<>();
-        int N = 32;
-
-        int bacons[] = new int[N];
-        for (int i = 0; i < N; i++) {
-            int randomInt = StdRandom.uniform(0, 2);
-
-            if (randomInt == 0) {
-                bacons[deque.decrement(deque.getFrontIndex())] = i;
-                deque.addFirst(i);
-            } else {
-                bacons[deque.increment(deque.getBackIndex())] = i;
-                deque.addLast(i);
-            }
-        }
-        for (int i = 0; i < N; i++) {
-            int randomInt = StdRandom.uniform(0, 2);
-
-            if (randomInt == 0) {
-                assertEquals(bacons[deque.getFrontIndex()], (int) deque.removeFirst());
-            } else {
-                assertEquals(bacons[deque.getBackIndex()], (int) deque.removeLast());
-            }
-        }
-
     }
 
 /*
