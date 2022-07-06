@@ -16,6 +16,11 @@ public class ArrayDeque<Bacon> {
         size = 0;
     }
 
+    public ArrayDeque(Bacon bacon) {
+        this();
+        this.addFirst(bacon);
+    }
+
     public int increment(int n) {
         return Math.floorMod(n + 1, bacons.length);
     }
@@ -118,6 +123,34 @@ public class ArrayDeque<Bacon> {
         Bacon removed = remove(getBackIndex());
         nextBackIndex = decrement(nextBackIndex);
         return removed;
+    }
+
+    public float getUsageRatio() {
+        return (float) size / bacons.length;
+    }
+
+    public void resize() {
+        if (isFull()) {
+            resizeHelper(bacons.length * 2);
+        } else if (getUsageRatio() < 0.25 && bacons.length >= 16) {
+            resizeHelper(bacons.length / 2);
+        }
+    }
+
+    public void resizeHelper(int size) {
+        Bacon[] newArray = (Bacon[]) new Object[size];
+
+        if (getFrontIndex() > getBackIndex()) {
+            int startingSrcPos = getFrontIndex() - bacons.length;
+            System.arraycopy(bacons, getFrontIndex(), newArray, 2, startingSrcPos);
+            System.arraycopy(bacons, 0, newArray, 2 + startingSrcPos, getBackIndex() + 1);
+        } else {
+            System.arraycopy(bacons, getFrontIndex(), newArray, 2, size);
+        }
+
+        bacons = newArray;
+        nextFrontIndex = 1;
+        nextBackIndex = getFrontIndex() + size;
     }
 
 

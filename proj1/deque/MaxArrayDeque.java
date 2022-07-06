@@ -1,4 +1,4 @@
-/*
+
 package deque;
 
 import java.util.Comparator;
@@ -12,14 +12,14 @@ public class MaxArrayDeque<Bacon> extends ArrayDeque<Bacon> {
     }
 
     public MaxArrayDeque(Comparator<Bacon> c, Bacon bacon) {
-        super(bacon);
-        comparator = c;
+        this(c);
+        this.addFirst(bacon);
     }
 
     public Bacon max(Comparator<Bacon> c) {
         Bacon max = get(0);
 
-        for (int i = 1; i < size; i += 1) {
+        for (int i = 1; i < size(); i += 1) {
             Bacon currentBacon = get(i);
             if (c.compare(max, currentBacon) < 0) {
                 max = currentBacon;
@@ -32,4 +32,4 @@ public class MaxArrayDeque<Bacon> extends ArrayDeque<Bacon> {
         return max(comparator);
     }
 
-} */
+}
