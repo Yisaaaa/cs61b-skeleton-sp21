@@ -14,7 +14,7 @@ public class ArrayDequeTest {
     @Test
     public void addFirstRemoveLastIsEmptyTest() {
         ArrayDeque<Integer> deque = new ArrayDeque<>();
-        int N = 8;
+        int N = 32;
         for (int i = 0; i < N; i++) {
             deque.addFirst(i);
         }
@@ -28,7 +28,7 @@ public class ArrayDequeTest {
     @Test
     public void addLastRemoveFirstIsEmptyTest() {
         ArrayDeque<Integer> deque = new ArrayDeque<>();
-        int N = 8;
+        int N = 32;
         for (int i = 0; i < N; i++) {
             deque.addLast(i);
         }
@@ -42,9 +42,9 @@ public class ArrayDequeTest {
     @Test
     public void RandomAddEmptyAddTest() {
         ArrayDeque<Integer> deque = new ArrayDeque<>();
-        int N = 8;
+        int N = 32;
 
-        int bacons[] = new int[8];
+        int bacons[] = new int[N];
         for (int i = 0; i < N; i++) {
             int randomInt = StdRandom.uniform(0, 2);
 

@@ -140,7 +140,7 @@ public class ArrayDeque<Bacon> {
         Bacon[] newArray = (Bacon[]) new Object[size];
 
         if (getFrontIndex() > getBackIndex()) {
-            int startingSrcPos = getFrontIndex() - bacons.length;
+            int startingSrcPos = bacons.length - getFrontIndex();
             System.arraycopy(bacons, getFrontIndex(), newArray, 2, startingSrcPos);
             System.arraycopy(bacons, 0, newArray, 2 + startingSrcPos, getBackIndex() + 1);
         } else {
@@ -149,7 +149,7 @@ public class ArrayDeque<Bacon> {
 
         bacons = newArray;
         nextFrontIndex = 1;
-        nextBackIndex = getFrontIndex() + size;
+        nextBackIndex = Math.floorMod((getFrontIndex() + size), bacons.length);
     }
 
 
