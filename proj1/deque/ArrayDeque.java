@@ -1,12 +1,34 @@
 package deque;
 
-public class ArrayDeque<Bacon> implements Deque<Bacon> {
+import java.util.Iterator;
+
+public class ArrayDeque<Bacon> implements Deque<Bacon>, Iterable<Bacon> {
 
     private Bacon bacons[];
     private int initialLength = 8;
     private int nextFrontIndex;
     private int nextBackIndex;
     private int size;
+
+    private class ArrayDequeIterator implements Iterator<Bacon> {
+        private int currentIndex = 0;
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < size;
+        }
+
+        @Override
+        public Bacon next() {
+            Bacon bacon = get(currentIndex);
+            currentIndex += 1;
+            return bacon;
+        }
+    }
+
+    public Iterator<Bacon> iterator() {
+        return new ArrayDequeIterator();
+    }
 
 
     public ArrayDeque() {
@@ -59,9 +81,6 @@ public class ArrayDeque<Bacon> implements Deque<Bacon> {
             System.out.print(get(i) + " ");
         }
     }
-
-
-
 
     /*
     * In add operations:
