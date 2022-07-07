@@ -1,9 +1,7 @@
 package deque;
 
 
-import java.util.function.ObjIntConsumer;
-
-public class LinkedListDeque<T> {
+public class LinkedListDeque<T> implements Deque<T> {
 
     public TNode sentinel;
     private int size = 0;
@@ -44,6 +42,17 @@ public class LinkedListDeque<T> {
     }
 
     @Override
+    public void printDeque() {
+        for (TNode node = sentinel.next; node != null; node = node.next) {
+            if (node.next == null) {
+                System.out.println(node.item);
+            } else {
+                System.out.print(node.item + " ");
+            }
+        }
+    }
+
+    @Override
     public boolean equals(Object o) {
         return (o.getClass() == LinkedListDeque.class) &&
                 ((LinkedListDeque<?>) o).size() == this.size() &&
@@ -61,23 +70,6 @@ public class LinkedListDeque<T> {
         return true;
     }
 
-    /**
-    public void addFirst(T item) {
-        size ++;
-        if (sentinel.next.equals(sentinel)) {
-            addFirstHelper(item);
-            sentinel.prev = sentinel.next;
-        } else {
-            addFirstHelper(item);
-        }
-    }
-
-    public void addFirstHelper(T item) {
-        TNode newNode = new TNode(item, sentinel.prev, sentinel);
-        sentinel.next.prev = newNode;
-        sentinel.next = newNode;
-    }
-    */
 
     public void addFirst(T item) {
         size ++;
@@ -93,28 +85,9 @@ public class LinkedListDeque<T> {
         sentinel.prev.next = newNode;
         sentinel.prev = newNode;
     }
-
-    // isEmpty
-    public boolean isEmpty() {
-        return sentinel.next.equals(sentinel);
-    }
-
-    // size
+    
     public int size() {
         return this.size;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder string = new StringBuilder("{");
-        for (TNode node = sentinel.next; node.item != null; node = node.next) {
-            if (node.next.item == null) {
-                string.append(node.item.toString() + "}");
-            } else {
-                string.append(node.item.toString() + ", ");
-            }
-        }
-        return string.toString();
     }
 
     public T removeFirst() {
@@ -176,14 +149,4 @@ public class LinkedListDeque<T> {
         }
     }
 
-    public static void main(String[] args) {
-        LinkedListDeque<Integer> deq = new LinkedListDeque<>(12);
-        deq.addLast(34);
-        deq.addLast(23);
-        deq.addLast(72);
-        System.out.println(deq);
-
-        LinkedListDeque<Integer> deq2 = LinkedListDeque.of(12, 34, 23, 72);
-        System.out.println(deq2);
-    }
 }

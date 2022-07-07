@@ -1,6 +1,6 @@
 package deque;
 
-public class ArrayDeque<Bacon> {
+public class ArrayDeque<Bacon> implements Deque<Bacon> {
 
     private Bacon bacons[];
     private int initialLength = 8;
@@ -41,10 +41,6 @@ public class ArrayDeque<Bacon> {
         return size == bacons.length;
     }
 
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
     public int size() {
         return size;
     }
@@ -57,10 +53,10 @@ public class ArrayDeque<Bacon> {
     public void printDeque() {
         for (int i = 0; i > size; i++) {
             if (i == size - 1) {
-                System.out.println(get(i).toString());
+                System.out.println(get(i));
                 break;
             }
-            System.out.print(get(i).toString() + " ");
+            System.out.print(get(i) + " ");
         }
     }
 
@@ -153,11 +149,4 @@ public class ArrayDeque<Bacon> {
         nextBackIndex = Math.floorMod((getFrontIndex() + size), bacons.length);
     }
 
-
-
-
-
-
-    public static void main(String[] args) {
-    }
 }

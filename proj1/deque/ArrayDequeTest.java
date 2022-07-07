@@ -39,5 +39,5 @@ public class ArrayDequeTest {
 
         assertTrue(deque.isEmpty());
     }
-    
+
 }
