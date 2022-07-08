@@ -20,6 +20,9 @@ public class ArrayDeque<Bacon> implements Deque<Bacon>, Iterable<Bacon> {
 
         @Override
         public Bacon next() {
+            if (!hasNext()) {
+                return null;
+            }
             Bacon bacon = get(currentIndex);
             currentIndex += 1;
             return bacon;
