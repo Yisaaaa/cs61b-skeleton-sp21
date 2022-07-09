@@ -3,6 +3,7 @@
 package deque;
 
 
+import edu.princeton.cs.introcs.In;
 import edu.princeton.cs.introcs.StdRandom;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -38,6 +39,22 @@ public class ArrayDequeTest {
         }
 
         assertTrue(deque.isEmpty());
+    }
+
+    @Test
+    public void equalsTest() {
+        ArrayDeque<Integer> a = new ArrayDeque<>();
+        LinkedListDeque<Integer> b = new LinkedListDeque<>();
+
+        assertFalse(a.equals(null));
+        assertTrue(a.equals(b));
+
+        for (int i = 0; i <= 32; i++) {
+            a.addLast(i);
+            b.addFirst(i);
+        }
+
+        assertTrue(a.equals(b));
     }
 
 }

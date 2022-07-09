@@ -142,7 +142,7 @@ public class LinkedListDequeTest {
 
         assertFalse(linkedListDeque.equals(null));
         assertFalse(linkedListDeque.equals(new ArrayDeque<String>("g")));
-        assertFalse(linkedListDeque.equals(arrayDeque));
+        assertTrue(linkedListDeque.equals(arrayDeque));
     }
 
     public static LinkedListDeque<Integer> generateNautralDeque(int length) {

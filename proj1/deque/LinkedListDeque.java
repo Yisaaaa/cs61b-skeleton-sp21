@@ -1,6 +1,13 @@
 package deque;
 
+import jh61b.junit.In;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
+import java.util.spi.LocaleNameProvider;
 
 public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
@@ -81,7 +88,6 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public boolean equals(Object other) {
-
         if (this == other) {
             return true;
         }
@@ -92,12 +98,21 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         if (size != o.size()) {
             return false;
         }
-        for (int i = 0; i <= size; i++) {
-            if (!(get(i).equals(o.get(i)))) {
-                return false;
-            }
+        if (this.get(0).getClass() != o.get(0).getClass()) {return false;}
+        return equalsHelper(o);
+    }
+
+    private boolean equalsHelper(Deque other) {
+        Set<T> a = new HashSet<>();
+        Set b = new HashSet<>();
+
+        for (int i = 0; i < size; i++) {
+            a.add(this.get(i));
         }
-        return true;
+        for (int i = 0; i < size; i++) {
+            b.add(other.get(i));
+        }
+        return a.containsAll(b);
     }
 
 
@@ -177,6 +192,14 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         } else {
             return getRecursiveHelper(index - 1, node.next);
         }
+    }
+
+    public static void main(String[] args) {
+        Set<Integer> a = new HashSet<>();
+        Set<String> b = new HashSet<>();
+        a.add(1);
+        b.add("1");
+        System.out.println(a.containsAll(b));
     }
 
 }

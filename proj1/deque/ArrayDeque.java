@@ -1,16 +1,18 @@
 package deque;
 
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
-public class ArrayDeque<Bacon> implements Deque<Bacon>, Iterable<Bacon> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
-    private Bacon bacons[];
+    private T items[];
     private int initialLength = 8;
     private int nextFrontIndex;
     private int nextBackIndex;
     private int size;
 
-    private class ArrayDequeIterator implements Iterator<Bacon> {
+    private class ArrayDequeIterator implements Iterator<T> {
         private int currentIndex = 0;
 
         @Override
@@ -19,39 +21,39 @@ public class ArrayDeque<Bacon> implements Deque<Bacon>, Iterable<Bacon> {
         }
 
         @Override
-        public Bacon next() {
+        public T next() {
             if (!hasNext()) {
                 return null;
             }
-            Bacon bacon = get(currentIndex);
+            T item = get(currentIndex);
             currentIndex += 1;
-            return bacon;
+            return item;
         }
     }
 
-    public Iterator<Bacon> iterator() {
+    public Iterator<T> iterator() {
         return new ArrayDequeIterator();
     }
 
 
     public ArrayDeque() {
-        bacons = (Bacon[]) new Object[initialLength];
+        items = (T[]) new Object[initialLength];
         nextFrontIndex = 1;
         nextBackIndex = 2;
         size = 0;
     }
 
-    public ArrayDeque(Bacon bacon) {
+    public ArrayDeque(T T) {
         this();
-        this.addFirst(bacon);
+        this.addFirst(T);
     }
 
     public int increment(int n) {
-        return Math.floorMod(n + 1, bacons.length);
+        return Math.floorMod(n + 1, items.length);
     }
 
     public int decrement(int n) {
-        return Math.floorMod(n - 1, bacons.length);
+        return Math.floorMod(n - 1, items.length);
     }
 
     public int getFrontIndex() {
@@ -63,16 +65,46 @@ public class ArrayDeque<Bacon> implements Deque<Bacon>, Iterable<Bacon> {
     }
 
     public boolean isFull() {
-        return size == bacons.length;
+        return size == items.length;
     }
 
     public int size() {
         return size;
     }
 
-    public Bacon get(int index) {
-        int circularIndex = Math.floorMod(getFrontIndex() + index, bacons.length);
-        return bacons[circularIndex];
+    public T get(int index) {
+        int circularIndex = Math.floorMod(getFrontIndex() + index, items.length);
+        return items[circularIndex];
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof Deque<?>)) {
+            return false;
+        }
+        Deque<T> o = (Deque<T>) other;
+        if (size != o.size()) {
+            return false;
+        }
+        if (isEmpty() && isEmpty()) {
+            return true;
+        }
+        if (this.get(0).getClass() != o.get(0).getClass()) {return false;}
+        return equalsHelper(o);
+    }
+
+    private boolean equalsHelper(Deque other) {
+        Set<T> a = new HashSet<>();
+        Set b = new HashSet<>();
+
+        for (int i = 0; i < size; i++) {
+            a.add(get(i));
+            b.add(other.get(i));
+        }
+        return a.containsAll(b);
     }
 
     public void printDeque() {
@@ -91,22 +123,22 @@ public class ArrayDeque<Bacon> implements Deque<Bacon>, Iterable<Bacon> {
     *   back increments
     * */
 
-    public void addFirst(Bacon bacon) {
+    public void addFirst(T T) {
         if (isFull()) {
             resize();
         }
 
-        bacons[nextFrontIndex] = bacon;
+        items[nextFrontIndex] = T;
         nextFrontIndex = decrement(nextFrontIndex);
         size += 1;
     }
 
-    public void addLast(Bacon bacon) {
+    public void addLast(T T) {
         if (isFull()) {
             resize();
         }
 
-        bacons[nextBackIndex] = bacon;
+        items[nextBackIndex] = T;
         nextBackIndex = increment(nextBackIndex);
         size += 1;
     }
@@ -116,59 +148,59 @@ public class ArrayDeque<Bacon> implements Deque<Bacon>, Iterable<Bacon> {
     *       nextBackIndex decrements
     * */
 
-    public Bacon remove(int index) {
-        Bacon removed = bacons[index];
+    public T remove(int index) {
+        T removed = items[index];
         size -= 1;
-        bacons[index] = null;
+        items[index] = null;
         return removed;
     }
 
-    public Bacon removeFirst() {
+    public T removeFirst() {
         if (isEmpty()) {
             return null;
         }
-        Bacon removed = remove(getFrontIndex());
+        T removed = remove(getFrontIndex());
         nextFrontIndex = increment(nextFrontIndex);
         resize();
         return removed;
     }
 
-    public Bacon removeLast() {
+    public T removeLast() {
         if (isEmpty()) {
             return null;
         }
-        Bacon removed = remove(getBackIndex());
+        T removed = remove(getBackIndex());
         nextBackIndex = decrement(nextBackIndex);
         resize();
         return removed;
     }
 
     public float getUsageRatio() {
-        return (float) size / bacons.length;
+        return (float) size / items.length;
     }
 
     public void resize() {
         if (isFull()) {
-            resizeHelper(bacons.length * 2);
-        } else if (getUsageRatio() < 0.25 && bacons.length >= 16) {
-            resizeHelper(bacons.length / 2);
+            resizeHelper(items.length * 2);
+        } else if (getUsageRatio() < 0.25 && items.length >= 16) {
+            resizeHelper(items.length / 2);
         }
     }
 
     public void resizeHelper(int amount) {
-        Bacon[] newArray = (Bacon[]) new Object[amount];
+        T[] newArray = (T[]) new Object[amount];
 
         if (getFrontIndex() > getBackIndex()) {
-            int startingSrcPos = bacons.length - getFrontIndex();
-            System.arraycopy(bacons, getFrontIndex(), newArray, 2, startingSrcPos);
-            System.arraycopy(bacons, 0, newArray, 2 + startingSrcPos, getBackIndex() + 1);
+            int startingSrcPos = items.length - getFrontIndex();
+            System.arraycopy(items, getFrontIndex(), newArray, 2, startingSrcPos);
+            System.arraycopy(items, 0, newArray, 2 + startingSrcPos, getBackIndex() + 1);
         } else {
-            System.arraycopy(bacons, getFrontIndex(), newArray, 2, size);
+            System.arraycopy(items, getFrontIndex(), newArray, 2, size);
         }
 
-        bacons = newArray;
+        items = newArray;
         nextFrontIndex = 1;
-        nextBackIndex = Math.floorMod((getFrontIndex() + size), bacons.length);
+        nextBackIndex = Math.floorMod((getFrontIndex() + size), items.length);
     }
 
 }
