@@ -52,7 +52,6 @@ public class TestArrayDequeEC {
                     //failureSequenceString = printFailureSequence(failureSequence);
                     if (!(removeFromSolution == null && removeFromBuggy == null)) {
                         assertEquals(printFailureSequence(failureSequence), removeFromSolution, removeFromBuggy);
-                        failureSequence = new ArrayDequeSolution<>();
                     }
                 } else if (randomOperation == 3) {
                     Integer removeFromSolution = solution.removeLast();
@@ -62,8 +61,6 @@ public class TestArrayDequeEC {
                     //failureSequenceString = printFailureSequence(failureSequence);
                     if (!(removeFromSolution == null && removeFromBuggy == null)) {
                         assertEquals(printFailureSequence(failureSequence), removeFromSolution, removeFromBuggy);
-                        failureSequence = new ArrayDequeSolution<>();
-                        failureSequence.addLast("removeLast");
                     }
                 }
             }
