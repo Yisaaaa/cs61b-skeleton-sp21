@@ -9,11 +9,14 @@ import student.StudentArrayDeque;
 
 public class TestArrayDequeEC {
 
-    public void printFailureSequence(ArrayDequeSolution<String> sequence) {
+    public String printFailureSequence(ArrayDequeSolution<String> sequence) {
+        StringBuilder sequenceString = new StringBuilder();
 
         for (String operation : sequence) {
-            System.out.println(operation);
+            sequenceString.append(operation + "\n");
         }
+
+        return sequenceString.toString();
     }
 
 
@@ -22,6 +25,7 @@ public class TestArrayDequeEC {
         /* A test for the four basic operations -- adds and removes */
 
         int N = 100;
+        String failureSequenceString;
         ArrayDequeSolution<Integer> solution = new ArrayDequeSolution();
         ArrayDequeSolution<String> failureSequence = new ArrayDequeSolution<>();
         StudentArrayDeque<Integer> buggy = new StudentArrayDeque<>();
@@ -44,13 +48,17 @@ public class TestArrayDequeEC {
                     Integer removeFromSolution = solution.removeFirst();
                     Integer removeFromBuggy = buggy.removeFirst();
 
-                    assertEquals(removeFromSolution, removeFromBuggy);
+                    failureSequence.addLast("removeFirst()");
+                    //failureSequenceString = printFailureSequence(failureSequence);
+                    assertEquals(printFailureSequence(failureSequence), removeFromSolution, removeFromBuggy);
                     failureSequence = new ArrayDequeSolution<>();
                 } else if (randomOperation == 3) {
                     Integer removeFromSolution = solution.removeLast();
                     Integer removeFromBuggy = buggy.removeLast();
 
-                    assertEquals(removeFromSolution, removeFromBuggy);
+                    failureSequence.addLast("removeLast()");
+                    //failureSequenceString = printFailureSequence(failureSequence);
+                    assertEquals(printFailureSequence(failureSequence), removeFromSolution, removeFromBuggy);
                     failureSequence = new ArrayDequeSolution<>();
                 }
             }
