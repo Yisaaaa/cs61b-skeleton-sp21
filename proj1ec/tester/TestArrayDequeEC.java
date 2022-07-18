@@ -50,16 +50,21 @@ public class TestArrayDequeEC {
 
                     failureSequence.addLast("removeFirst()");
                     //failureSequenceString = printFailureSequence(failureSequence);
-                    assertEquals(printFailureSequence(failureSequence), removeFromSolution, removeFromBuggy);
-                    failureSequence = new ArrayDequeSolution<>();
+                    if (!(removeFromSolution == null && removeFromBuggy == null)) {
+                        assertEquals(printFailureSequence(failureSequence), removeFromSolution, removeFromBuggy);
+                        failureSequence = new ArrayDequeSolution<>();
+                    }
                 } else if (randomOperation == 3) {
                     Integer removeFromSolution = solution.removeLast();
                     Integer removeFromBuggy = buggy.removeLast();
 
                     failureSequence.addLast("removeLast()");
                     //failureSequenceString = printFailureSequence(failureSequence);
-                    assertEquals(printFailureSequence(failureSequence), removeFromSolution, removeFromBuggy);
-                    failureSequence = new ArrayDequeSolution<>();
+                    if (!(removeFromSolution == null && removeFromBuggy == null)) {
+                        assertEquals(printFailureSequence(failureSequence), removeFromSolution, removeFromBuggy);
+                        failureSequence = new ArrayDequeSolution<>();
+                        failureSequence.addLast("removeLast");
+                    }
                 }
             }
         }
