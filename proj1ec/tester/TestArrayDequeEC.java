@@ -9,13 +9,21 @@ import student.StudentArrayDeque;
 
 public class TestArrayDequeEC {
 
+    public void printFailureSequence(ArrayDequeSolution<String> sequence) {
+
+        for (String operation : sequence) {
+            System.out.println(operation);
+        }
+    }
+
+
     @Test
     public void basicRandomizedTest() {
         /* A test for the four basic operations -- adds and removes */
 
         int N = 100;
         ArrayDequeSolution<Integer> solution = new ArrayDequeSolution();
-        ArrayDequeSolution<String> falureSequence = new ArrayDequeSolution<>();
+        ArrayDequeSolution<String> failureSequence = new ArrayDequeSolution<>();
         StudentArrayDeque<Integer> buggy = new StudentArrayDeque<>();
 
         for (int i = 0; i < N; i++) {
@@ -24,9 +32,11 @@ public class TestArrayDequeEC {
             if (randomOperation == 0) {
                 solution.addFirst(i);
                 buggy.addFirst(i);
+                failureSequence.addLast("addFirst(" + i + ")");
             } else if (randomOperation == 1) {
                 solution.addLast(i);
                 buggy.addLast(i);
+                failureSequence.addLast("addLast(" + i + ")");
             }
 
             if (solution.size() > 0) {
@@ -35,11 +45,13 @@ public class TestArrayDequeEC {
                     Integer removeFromBuggy = buggy.removeFirst();
 
                     assertEquals(removeFromSolution, removeFromBuggy);
+                    failureSequence = new ArrayDequeSolution<>();
                 } else if (randomOperation == 3) {
                     Integer removeFromSolution = solution.removeLast();
                     Integer removeFromBuggy = buggy.removeLast();
 
                     assertEquals(removeFromSolution, removeFromBuggy);
+                    failureSequence = new ArrayDequeSolution<>();
                 }
             }
         }
