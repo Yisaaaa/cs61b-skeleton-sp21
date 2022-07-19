@@ -1,6 +1,7 @@
 package gh2;
 
 // TODO: uncomment the following import once you're ready to start this portion
+import deque.ArrayDeque;
 import deque.Deque;
 import deque.LinkedListDeque;
 // TODO: maybe more imports
@@ -43,6 +44,11 @@ public class GuitarString {
         //       other. This does not mean that you need to check that the numbers
         //       are different from each other. It means you should repeatedly call
         //       Math.random() - 0.5 to generate new random numbers for each array index.
+        Deque<Double> bufferWithRandomNumbers = new ArrayDeque<>();
+        for (int i = 0; i < buffer.size(); i++) {
+            bufferWithRandomNumbers.addLast(Math.random() - 0.5);
+        }
+        buffer = bufferWithRandomNumbers;
     }
 
     /* Advance the simulation one time step by performing one iteration of
@@ -52,6 +58,9 @@ public class GuitarString {
         // TODO: Dequeue the front sample and enqueue a new sample that is
         //       the average of the two multiplied by the DECAY factor.
         //       **Do not call StdAudio.play().**
+        double front = buffer.removeFirst();
+        double newDouble = (front + buffer.get(0)) * 0.5;
+        buffer.addLast(newDouble);
     }
 
     /* Return the double at the front of the buffer. */
