@@ -1,6 +1,5 @@
 package gh2;
 
-import deque.ArrayDeque;
 import deque.Deque;
 import deque.LinkedListDeque;
 
@@ -28,7 +27,7 @@ public class GuitarString {
 
     /* Pluck the guitar string by replacing the buffer with white noise. */
     public void pluck() {
-        Deque<Double> bufferWithRandomNumbers = new ArrayDeque<>();
+        Deque<Double> bufferWithRandomNumbers = new LinkedListDeque<>();
         for (int i = 0; i < buffer.size(); i++) {
             bufferWithRandomNumbers.addLast(Math.random() - 0.5);
         }
