@@ -1,25 +1,20 @@
 package deque;
 
-import jh61b.junit.In;
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.spi.LocaleNameProvider;
 
 public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
 
-    public TNode sentinel;
+    private TNode sentinel;
     private int size = 0;
 
     /* TNode class */
-    private class TNode {
-        public T item;
-        public TNode prev;
-        public TNode next;
+    public class TNode {
+        private T item;
+        private TNode prev;
+        private TNode next;
 
         public TNode(T i, TNode n, TNode p) {
             item = i;
@@ -117,7 +112,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
 
     public void addFirst(T item) {
-        size ++;
+        size++;
         TNode newNode = new TNode(item, sentinel.next, sentinel);
         sentinel.next.prev = newNode;
         sentinel.next = newNode;
@@ -125,7 +120,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     // addLast
     public void addLast(T item) {
-        size ++;
+        size++;
         TNode newNode = new TNode(item, sentinel, sentinel.prev);
         sentinel.prev.next = newNode;
         sentinel.prev = newNode;
@@ -137,7 +132,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     public T removeFirst() {
         if (sentinel.next != sentinel) {
-            size --;
+            size--;
             return removeFirstHelper();
         } else {
             return null;
@@ -153,7 +148,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     public T removeLast() {
         if (sentinel.prev != sentinel) {
-            size --;
+            size--;
             return removeLastHelper();
         }else {
             return null;
@@ -174,13 +169,13 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
             TNode currNode = sentinel;
             while (index >= 0) {
                 currNode = currNode.next;
-                index --;
+                index--;
             }
             return currNode.item;
         }
     }
 
-    private T getRecursive(int index) {
+    public T getRecursive(int index) {
         if (index >= this.size() || index < 0) {
             return null;
         }
@@ -192,14 +187,6 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         } else {
             return getRecursiveHelper(index - 1, node.next);
         }
-    }
-
-    public static void main(String[] args) {
-        Set<Integer> a = new HashSet<>();
-        Set<String> b = new HashSet<>();
-        a.add(1);
-        b.add("1");
-        System.out.println(a.containsAll(b));
     }
 
 }
