@@ -108,7 +108,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     public void printDeque() {
-        for (int i = 0; i > size; i++) {
+        for (int i = 0; i < size; i++) {
             if (i == size - 1) {
                 System.out.println(get(i));
                 break;

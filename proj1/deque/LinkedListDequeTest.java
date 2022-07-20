@@ -139,6 +139,8 @@ public class LinkedListDequeTest {
             arrayDeque.addFirst(i);
             linkedListDeque.addLast(i);
         }
+        arrayDeque.printDeque();
+        linkedListDeque.printDeque();
 
         assertFalse(linkedListDeque.equals(null));
         assertFalse(linkedListDeque.equals(new ArrayDeque<String>("g")));
