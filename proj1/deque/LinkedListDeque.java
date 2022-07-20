@@ -28,7 +28,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
         @Override
         public boolean hasNext() {
-            return !isEmpty() && currentNode != null;
+            return !isEmpty() && currentNode != sentinel;
         }
 
         @Override
