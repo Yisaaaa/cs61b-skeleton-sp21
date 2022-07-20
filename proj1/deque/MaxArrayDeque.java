@@ -3,24 +3,24 @@ package deque;
 
 import java.util.Comparator;
 
-public class MaxArrayDeque<Bacon> extends ArrayDeque<Bacon> {
+public class MaxArrayDeque<T> extends ArrayDeque<T> {
 
-    private Comparator<Bacon> comparator;
+    private Comparator<T> comparator;
 
-    public MaxArrayDeque(Comparator<Bacon> c) {
+    public MaxArrayDeque(Comparator<T> c) {
         comparator = c;
     }
 
-    public MaxArrayDeque(Comparator<Bacon> c, Bacon bacon) {
+    public MaxArrayDeque(Comparator<T> c, T bacon) {
         this(c);
         this.addFirst(bacon);
     }
 
-    public Bacon max(Comparator<Bacon> c) {
-        Bacon max = get(0);
+    public T max(Comparator<T> c) {
+        T max = get(0);
 
         for (int i = 1; i < size(); i += 1) {
-            Bacon currentBacon = get(i);
+            T currentBacon = get(i);
             if (c.compare(max, currentBacon) < 0) {
                 max = currentBacon;
             }
@@ -28,7 +28,7 @@ public class MaxArrayDeque<Bacon> extends ArrayDeque<Bacon> {
         return max;
     }
 
-    public Bacon max() {
+    public T max() {
         return max(comparator);
     }
 
