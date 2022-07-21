@@ -87,28 +87,19 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
             return false;
         } else if (other == this) {
             return true;
-        } else if (!(other instanceof Deque<?>)) {
-            return false;
+        } else if (other instanceof Deque<?>) {
+            Deque castedOther = (Deque) other;
+            if (this.size != castedOther.size()) {
+                return false;
+            }
+            for (int i = 0; i < size; i++) {
+                if (!(get(i).equals(castedOther.get(i)))) {
+                    return false;
+                }
+                return true;
+            }
         }
-
-        Deque o = (Deque) other;
-        if (o.size() != this.size) {
-            return false;
-        }
-
-        return allItemsIn(o);
-    }
-
-    private boolean allItemsIn(Deque other) {
-        Set<T> a = new HashSet<>();
-        Set b = new HashSet();
-        for (int i = 0; i < size(); i++) {
-            a.add(this.get(i));
-        }
-        for (int i = 0; i < other.size(); i++) {
-            b.add(other.get(i));
-        }
-        return a.equals(b);
+        return false;
     }
 
 
