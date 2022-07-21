@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
-    public T items[];
+    private T items[];
     private int initialLength = 8;
     private int nextFrontIndex;
     private int nextBackIndex;

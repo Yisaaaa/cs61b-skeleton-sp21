@@ -1,7 +1,5 @@
 package deque;
 
-import jh61b.junit.In;
-
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
