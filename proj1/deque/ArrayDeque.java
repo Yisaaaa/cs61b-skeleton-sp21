@@ -98,6 +98,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private boolean allItemsIn(Deque other) {
         Set<T> a = new HashSet<>();
         Set b = new HashSet();
+        for (int i = 0; i < size; i++) {
+            a.add(this.get(i));
+        }
         for (int i = 0; i < other.size(); i++) {
             b.add(other.get(i));
         }
