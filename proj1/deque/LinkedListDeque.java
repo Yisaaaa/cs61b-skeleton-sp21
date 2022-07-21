@@ -1,5 +1,7 @@
 package deque;
 
+import jh61b.junit.In;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -83,32 +85,34 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public boolean equals(Object other) {
-        if (this == other) {
+        if (other == null) {
+            return false;
+        } else if (other == this) {
             return true;
-        }
-        if (!(other instanceof Deque<?>)) {
+        } else if (!(other instanceof Deque<?>)) {
             return false;
         }
-        Deque<T> o = (Deque<T>) other;
-        if (size != o.size()) {
+
+        Deque o = (Deque) other;
+        if (o.size() != this.size) {
             return false;
         }
-        if (this.get(0).getClass() != o.get(0).getClass()) {return false;}
-        return equalsHelper(o);
+
+        return allItemsIn(o);
     }
 
-    private boolean equalsHelper(Deque other) {
+    private boolean allItemsIn(Deque other) {
         Set<T> a = new HashSet<>();
-        Set b = new HashSet<>();
-
-        for (int i = 0; i < size; i++) {
+        Set b = new HashSet();
+        for (int i = 0; i < size(); i++) {
             a.add(this.get(i));
         }
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < other.size(); i++) {
             b.add(other.get(i));
         }
-        return a.containsAll(b);
+        return a.equals(b);
     }
+
 
 
     public void addFirst(T item) {
