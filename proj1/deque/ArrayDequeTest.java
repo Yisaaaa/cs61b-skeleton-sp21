@@ -46,12 +46,9 @@ public class ArrayDequeTest {
         ArrayDeque<Integer> a = new ArrayDeque<>();
         LinkedListDeque<Integer> b = new LinkedListDeque<>();
 
-        assertFalse(a.equals(null));
-        assertTrue(a.equals(b));
-
         for (int i = 0; i <= 32; i++) {
             a.addLast(i);
-            b.addFirst(i);
+            b.addLast(i);
         }
 
         assertTrue(a.equals(b));

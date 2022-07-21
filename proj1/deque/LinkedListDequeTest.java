@@ -1,6 +1,10 @@
 package deque;
 
 import org.junit.Test;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.Assert.*;
 
 /** Performs some basic linked list tests. */
@@ -132,19 +136,18 @@ public class LinkedListDequeTest {
 
     @Test
     public void equalsTest() {
-        ArrayDeque<Integer> arrayDeque = new ArrayDeque<>();
-        LinkedListDeque<Integer> linkedListDeque = new LinkedListDeque<>();
+        LinkedListDeque<Integer> a = new LinkedListDeque<>();
+        ArrayDeque<Integer> b = new ArrayDeque<>();
 
         for (int i = 1; i <= 4; i++) {
-            arrayDeque.addFirst(i);
-            linkedListDeque.addLast(i);
+            a.addFirst(i);
+            b.addFirst(i);
         }
-        arrayDeque.printDeque();
-        linkedListDeque.printDeque();
 
-        assertFalse(linkedListDeque.equals(null));
-        assertFalse(linkedListDeque.equals(new ArrayDeque<String>("g")));
-        assertTrue(linkedListDeque.equals(arrayDeque));
+        assertTrue(a.equals(b));
+        assertTrue(a.equals(a));
+        assertFalse(a.equals(null));
+
     }
 
     public static LinkedListDeque<Integer> generateNautralDeque(int length) {
