@@ -48,23 +48,23 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         this.addFirst(T);
     }
 
-    public int increment(int n) {
+    private int increment(int n) {
         return Math.floorMod(n + 1, items.length);
     }
 
-    public int decrement(int n) {
+    private int decrement(int n) {
         return Math.floorMod(n - 1, items.length);
     }
 
-    public int getFrontIndex() {
+    private int getFrontIndex() {
         return increment(nextFrontIndex);
     }
 
-    public int getBackIndex() {
+    private int getBackIndex() {
         return decrement(nextBackIndex);
     }
 
-    public boolean isFull() {
+    private boolean isFull() {
         return size == items.length;
     }
 
@@ -76,6 +76,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         int circularIndex = Math.floorMod(getFrontIndex() + index, items.length);
         return items[circularIndex];
     }
+
 
     @Override
     public boolean equals(Object other) {
@@ -140,7 +141,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     *       nextBackIndex decrements
     * */
 
-    public T remove(int index) {
+    private T remove(int index) {
         T removed = items[index];
         size -= 1;
         items[index] = null;
@@ -167,7 +168,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         return removed;
     }
 
-    public float getUsageRatio() {
+    private float getUsageRatio() {
         return (float) size / items.length;
     }
 
@@ -179,7 +180,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         }
     }
 
-    public void resizeHelper(int amount) {
+    private void resizeHelper(int amount) {
         T[] newArray = (T[]) new Object[amount];
 
         if (getFrontIndex() > getBackIndex()) {
